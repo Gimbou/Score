@@ -1,1 +1,11 @@
-<p>score works!</p>
+<span class="score"> {{ game.score[0] }} - {{ game.score[1] }} </span>
+<br />
+<ul class="players">
+  <li *ngFor="let player of players">
+    <span class="badge">{{ player.team }}</span> {{ player.name }}
+    {{ player.goals }}
+    <button class="goal" title="Add goal" (click)="goal(player)">
+      +
+    </button>
+  </li>
+</ul>

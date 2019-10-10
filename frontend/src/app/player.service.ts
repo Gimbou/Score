@@ -54,4 +54,15 @@ export class PlayerService {
 
     return this.players;
   }
+
+  addGoal(player: Player) {
+    let updatedPlayer = player;
+    if (updatedPlayer.goals) {
+      updatedPlayer.goals += 1;
+    } else {
+      updatedPlayer.goals = 1;
+    }
+    const index = this.players.findIndex(e => e.name === updatedPlayer.name);
+    this.players[index] = updatedPlayer;
+  }
 }
