@@ -6,10 +6,13 @@ import { AppComponent } from "./app.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
 
-import { PlayersComponent } from "./players/players.component";
-import { ResultComponent } from "./result/result.component";
-import { ScoreComponent } from "./score/score.component";
-import { TeamsComponent } from "./teams/teams.component";
+import { PlayersComponent } from "./views/players/players.component";
+import { ResultComponent } from "./views/result/result.component";
+import { ScoreComponent } from "./views/score/score.component";
+import { TeamsComponent } from "./views/teams/teams.component";
+import { PlayersListComponent } from "./components/players-list/players-list.component";
+import { RunningGameErrorComponent } from './views/running-game-error/running-game-error.component';
+import { AddPlayerComponent } from './components/add-player/add-player.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { TeamsComponent } from "./teams/teams.component";
     PlayersComponent,
     ResultComponent,
     ScoreComponent,
-    TeamsComponent
+    TeamsComponent,
+    PlayersListComponent,
+    RunningGameErrorComponent,
+    AddPlayerComponent
   ],
   imports: [
     BrowserModule,

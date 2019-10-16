@@ -1,0 +1,24 @@
+<div *ngIf="showTeams; then teamsList; else singleList"></div>
+<ng-template #singleList>
+  <ul class="players">
+    <li *ngFor="let player of players" (click)="deletePlayer(player)">
+      {{ player.name }}
+    </li>
+  </ul>
+</ng-template>
+<ng-template #teamsList>
+  <ul class="players">
+    <li *ngFor="let player of teamOne" (click)="addGoalAllowed && goal(player)">
+      <span class="badge">{{ player.team }}</span>
+      {{ player.name }}
+      <span *ngIf="showScore">{{ player.goals }}</span>
+    </li>
+  </ul>
+  <ul class="players">
+    <li *ngFor="let player of teamTwo" (click)="addGoalAllowed && goal(player)">
+      <span class="badge">{{ player.team }}</span>
+      {{ player.name }}
+      <span *ngIf="showScore">{{ player.goals }}</span>
+    </li>
+  </ul>
+</ng-template>
