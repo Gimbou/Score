@@ -1,5 +1,10 @@
 <app-add-player></app-add-player>
 <app-players-list></app-players-list>
-<button routerLink="/teams">
-  Shuffle
-</button>
+<div *ngIf="playerCount">
+  <button (click)="shuffle()">
+    Shuffle
+  </button>
+  <button *ngIf="playersShuffled" routerLink="/score">
+    Start
+  </button>
+</div>

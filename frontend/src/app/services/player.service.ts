@@ -44,10 +44,10 @@ export class PlayerService {
       if (this.shuffled) {
         const teamOneCount = this.players.filter(p => p.team === 1).length;
         const teamTwoCount = this.players.filter(p => p.team === 2).length;
-        let nextTeam = 2;
+        let nextTeam = 1;
 
-        if (teamOneCount < teamTwoCount) {
-          nextTeam = 1;
+        if (teamOneCount > teamTwoCount) {
+          nextTeam = 2;
         }
 
         player.team = nextTeam;
@@ -75,7 +75,7 @@ export class PlayerService {
     this.getLocalStorage();
 
     let currentIndex = this.players.length;
-    let teamNumber = 2;
+    let teamNumber = 1;
 
     // While there remain elements to shuffle
     while (0 !== currentIndex) {
@@ -129,6 +129,7 @@ export class PlayerService {
 
   reset() {
     this.clearLocalStorage();
+    this.shuffled = false;
     this.players = [];
   }
 }

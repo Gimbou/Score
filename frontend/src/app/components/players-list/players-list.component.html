@@ -8,14 +8,22 @@
 </ng-template>
 <ng-template #teamsList>
   <ul class="players">
-    <li *ngFor="let player of teamOne" (click)="addGoalAllowed && goal(player)">
+    <li
+      *ngFor="let player of teamOne"
+      (click)="addGoalAllowed && goal(player)"
+      (click)="deleteAllowed && deletePlayer(player)"
+    >
       <span class="badge">{{ player.team }}</span>
       {{ player.name }}
       <span *ngIf="showScore">{{ player.goals }}</span>
     </li>
   </ul>
   <ul class="players">
-    <li *ngFor="let player of teamTwo" (click)="addGoalAllowed && goal(player)">
+    <li
+      *ngFor="let player of teamTwo"
+      (click)="addGoalAllowed && goal(player)"
+      (click)="deleteAllowed && deletePlayer(player)"
+    >
       <span class="badge">{{ player.team }}</span>
       {{ player.name }}
       <span *ngIf="showScore">{{ player.goals }}</span>

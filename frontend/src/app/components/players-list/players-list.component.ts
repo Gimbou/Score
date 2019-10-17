@@ -12,7 +12,6 @@ import { GameService } from "../../services/game.service";
   styleUrls: ["./players-list.component.sass"]
 })
 export class PlayersListComponent implements OnInit {
-  @Input() showTeams: Boolean = false;
   @Input() showScore: Boolean = false;
   @Input() showUnknownPlayer: Boolean = false;
   @Input() addGoalAllowed: Boolean = false;
@@ -22,6 +21,8 @@ export class PlayersListComponent implements OnInit {
   teamOne: Player[];
   teamTwo: Player[];
   game: Game;
+  showTeams: Boolean = false;
+  deleteAllowed: Boolean = false;
   _subscription: Subscription;
 
   constructor(
@@ -29,18 +30,26 @@ export class PlayersListComponent implements OnInit {
     private gameService: GameService
   ) {
     this._subscription = this.playerService.playersChange.subscribe(value => {
+      this.setDeleteAllowed();
       this.getPlayers();
       this.getTeams();
     });
   }
 
   ngOnInit() {
+    this.setDeleteAllowed();
     this.getPlayers();
     this.getTeams();
   }
 
   ngOnDestroy() {
     this._subscription.unsubscribe();
+  }
+
+  setDeleteAllowed(): void {
+    if (!this.gameService.isGameStarted()) {
+      this.deleteAllowed = true;
+    }
   }
 
   getPlayers(): void {
@@ -50,6 +59,10 @@ export class PlayersListComponent implements OnInit {
   getTeams(): void {
     this.teamOne = this.playerService.getTeam(1);
     this.teamTwo = this.playerService.getTeam(2);
+
+    if (this.teamOne.length || this.teamTwo.length) {
+      this.showTeams = true;
+    }
   }
 
   goal(player: Player): void {
