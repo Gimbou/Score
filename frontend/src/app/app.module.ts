@@ -8,18 +8,22 @@ import { environment } from "../environments/environment";
 
 import { PlayersComponent } from "./views/players/players.component";
 import { ResultComponent } from "./views/result/result.component";
-import { ScoreComponent } from "./views/score/score.component";
+import { GameComponent } from "./views/game/game.component";
 import { PlayersListComponent } from "./components/players-list/players-list.component";
 import { AddPlayerComponent } from "./components/add-player/add-player.component";
+import { GoalsListComponent } from "./components/goals-list/goals-list.component";
+import { GoalsComponent } from "./views/goals/goals.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     PlayersComponent,
     ResultComponent,
-    ScoreComponent,
+    GameComponent,
     PlayersListComponent,
-    AddPlayerComponent
+    AddPlayerComponent,
+    GoalsListComponent,
+    GoalsComponent
   ],
   imports: [
     BrowserModule,

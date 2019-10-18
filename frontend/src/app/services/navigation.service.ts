@@ -4,11 +4,11 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class NavigationService {
-  backClicked: Boolean = false;
+  backClicked: boolean = false;
 
   constructor() {}
 
-  setBackClicked(value: Boolean) {
+  setBackClicked(value: boolean) {
     this.backClicked = value;
   }
 

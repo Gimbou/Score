@@ -71,10 +71,15 @@ export class GameService {
   }
 
   addGoal(team: number) {
+    this.getLocalStorage();
     this.game.score[team - 1] += 1;
     this.setLocalStorage();
+  }
 
-    return this.game;
+  deleteGoal(team: number) {
+    this.getLocalStorage();
+    this.game.score[team - 1] -= 1;
+    this.setLocalStorage();
   }
 
   reset() {

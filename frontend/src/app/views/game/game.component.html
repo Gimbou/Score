@@ -1,6 +1,5 @@
 <span class="score"> {{ game.score[0] }} - {{ game.score[1] }} </span>
 <app-players-list [addGoalAllowed]="true" [showScore]="true"></app-players-list>
 <app-add-player></app-add-player>
-<button (click)="endGame()">
-  End game
-</button>
+<button routerLink="/goals">Show goals</button>
+<button (click)="endGame()">End game</button>

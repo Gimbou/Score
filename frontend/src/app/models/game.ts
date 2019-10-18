@@ -5,5 +5,5 @@ export class Game {
   players?: Player[];
   startTime?: Date;
   endTime?: Date;
-  uploaded?: Boolean;
+  uploaded?: boolean;
 }

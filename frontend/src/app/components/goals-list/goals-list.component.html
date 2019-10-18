@@ -1,0 +1,7 @@
+<button routerLink="/game">Back</button>
+<ul class="players">
+  <li *ngFor="let goal of goals" (click)="deleteGoal(goal)">
+    <span class="badge">{{ goal.team }}</span>
+    {{ goal.name }} {{ goal.time | date: "HH:mm" }}
+  </li>
+</ul>

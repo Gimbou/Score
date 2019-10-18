@@ -6,11 +6,11 @@ import { Game } from "../../models/game";
 import { GameService } from "../../services/game.service";
 
 @Component({
-  selector: "app-score",
-  templateUrl: "./score.component.html",
-  styleUrls: ["./score.component.sass"]
+  selector: "app-game",
+  templateUrl: "./game.component.html",
+  styleUrls: ["./game.component.sass"]
 })
-export class ScoreComponent implements OnInit {
+export class GameComponent implements OnInit {
   game: Game;
   _subscription: Subscription;
 

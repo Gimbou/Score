@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
 import { PlayerService } from "../../services/player.service";
-import { GameService } from "../../services/game.service";
 import { Player } from "src/app/models/player";
 
 @Component({
@@ -10,10 +9,7 @@ import { Player } from "src/app/models/player";
   styleUrls: ["./add-player.component.sass"]
 })
 export class AddPlayerComponent implements OnInit {
-  constructor(
-    private playerService: PlayerService,
-    private gameService: GameService
-  ) {}
+  constructor(private playerService: PlayerService) {}
 
   ngOnInit() {}
 

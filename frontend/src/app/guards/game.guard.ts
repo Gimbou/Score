@@ -22,7 +22,7 @@ export class GameGuard implements CanActivate {
 
   checkGameStatus(): boolean {
     if (this.gameService.isGameStarted() && !this.gameService.isGameEnded()) {
-      this.router.navigate(["/score"]);
+      this.router.navigate(["/game"]);
       return false;
     }
 

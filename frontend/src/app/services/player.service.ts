@@ -1,20 +1,26 @@
 import { Injectable } from "@angular/core";
 
 import { Player } from "../models/player";
+import { Goal } from "../models/goal";
 import { Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class PlayerService {
-  shuffled: Boolean = false;
+  shuffled: boolean = false;
+  nextGoalId: number = 1;
   players: Player[] = [];
   playersChange: Subject<Player[]> = new Subject<Player[]>();
 
   constructor() {}
 
   setLocalStorage() {
-    const currentPlayers = { shuffled: this.shuffled, players: this.players };
+    const currentPlayers = {
+      shuffled: this.shuffled,
+      nextGoalId: this.nextGoalId,
+      players: this.players
+    };
     localStorage.setItem("currentPlayers", JSON.stringify(currentPlayers));
     this.playersChange.next(this.players);
   }
@@ -24,6 +30,7 @@ export class PlayerService {
 
     if (currentPlayers) {
       this.shuffled = currentPlayers.shuffled;
+      this.nextGoalId = currentPlayers.nextGoalId;
       this.players = currentPlayers.players;
     }
   }
@@ -53,6 +60,7 @@ export class PlayerService {
         player.team = nextTeam;
       }
 
+      player.goals = 0;
       this.players.push(player);
       this.setLocalStorage();
     } else {
@@ -100,7 +108,7 @@ export class PlayerService {
     this.setLocalStorage();
   }
 
-  setShuffled(shuffled: Boolean) {
+  setShuffled(shuffled: boolean) {
     this.shuffled = shuffled;
     this.setLocalStorage();
   }
@@ -113,18 +121,70 @@ export class PlayerService {
   addGoal(player: Player) {
     this.getLocalStorage();
 
-    let updatedPlayer = player;
+    let updatedPlayer: Player = player;
+    updatedPlayer.goals += 1;
 
-    if (updatedPlayer.goals) {
-      updatedPlayer.goals += 1;
+    if (!updatedPlayer.goalsTime) {
+      updatedPlayer.goalsTime = [{ id: this.nextGoalId, time: new Date() }];
     } else {
-      updatedPlayer.goals = 1;
+      updatedPlayer.goalsTime.push({ id: this.nextGoalId, time: new Date() });
     }
+
+    this.nextGoalId += 1;
 
     const index = this.players.findIndex(e => e.name === updatedPlayer.name);
     this.players[index] = updatedPlayer;
 
     this.setLocalStorage();
+  }
+
+  deleteGoal(id: number) {
+    this.getLocalStorage();
+
+    this.players.forEach(p => {
+      if (p.goalsTime) {
+        const index = p.goalsTime.findIndex(e => e.id === id);
+        if (index > -1) {
+          const playerIndex = this.players.indexOf(p);
+          p.goalsTime.splice(index, 1);
+          this.players[playerIndex].goalsTime = p.goalsTime;
+          this.players[playerIndex].goals -= 1;
+        }
+      }
+    });
+
+    this.setLocalStorage();
+  }
+
+  getGoals() {
+    this.getLocalStorage();
+    let goals: [Goal];
+    let appendedGoalsTime: Goal;
+
+    if (this.players) {
+      this.players.forEach(p => {
+        if (p.goalsTime) {
+          p.goalsTime.forEach(g => {
+            appendedGoalsTime = {
+              id: g.id,
+              time: g.time,
+              name: p.name,
+              team: p.team
+            };
+            if (!goals) {
+              goals = [appendedGoalsTime];
+            } else {
+              goals.push(appendedGoalsTime);
+            }
+          });
+        }
+      });
+      if (goals) {
+        goals.sort((a, b) => (a.id < b.id ? 1 : b.id < a.id ? -1 : 0));
+      }
+    }
+
+    return goals;
   }
 
   reset() {

@@ -9,8 +9,8 @@ import { PlayerService } from "src/app/services/player.service";
   styleUrls: ["./players.component.sass"]
 })
 export class PlayersComponent implements OnInit {
-  playerCount: Number = 0;
-  playersShuffled: Boolean = false;
+  playerCount: number = 0;
+  playersShuffled: boolean = false;
   _subscription: Subscription;
 
   constructor(private playerService: PlayerService) {

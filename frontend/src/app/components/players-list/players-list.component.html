@@ -10,7 +10,7 @@
   <ul class="players">
     <li
       *ngFor="let player of teamOne"
-      (click)="addGoalAllowed && goal(player)"
+      (click)="addGoalAllowed && addGoal(player)"
       (click)="deleteAllowed && deletePlayer(player)"
     >
       <span class="badge">{{ player.team }}</span>
@@ -21,7 +21,7 @@
   <ul class="players">
     <li
       *ngFor="let player of teamTwo"
-      (click)="addGoalAllowed && goal(player)"
+      (click)="addGoalAllowed && addGoal(player)"
       (click)="deleteAllowed && deletePlayer(player)"
     >
       <span class="badge">{{ player.team }}</span>

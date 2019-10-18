@@ -3,7 +3,6 @@ import { Subscription } from "rxjs";
 
 import { Player } from "../../models/player";
 import { PlayerService } from "../../services/player.service";
-import { Game } from "../../models/game";
 import { GameService } from "../../services/game.service";
 
 @Component({
@@ -12,17 +11,15 @@ import { GameService } from "../../services/game.service";
   styleUrls: ["./players-list.component.sass"]
 })
 export class PlayersListComponent implements OnInit {
-  @Input() showScore: Boolean = false;
-  @Input() showUnknownPlayer: Boolean = false;
-  @Input() addGoalAllowed: Boolean = false;
-  @Input() reduceGoalAllowed: Boolean = false;
+  @Input() showScore: boolean = false;
+  @Input() showUnknownPlayer: boolean = false;
+  @Input() addGoalAllowed: boolean = false;
 
   players: Player[];
   teamOne: Player[];
   teamTwo: Player[];
-  game: Game;
-  showTeams: Boolean = false;
-  deleteAllowed: Boolean = false;
+  showTeams: boolean = false;
+  deleteAllowed: boolean = false;
   _subscription: Subscription;
 
   constructor(
@@ -65,8 +62,8 @@ export class PlayersListComponent implements OnInit {
     }
   }
 
-  goal(player: Player): void {
-    this.game = this.gameService.addGoal(player.team);
+  addGoal(player: Player): void {
+    this.gameService.addGoal(player.team);
     this.playerService.addGoal(player);
   }
 

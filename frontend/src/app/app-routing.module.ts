@@ -5,7 +5,8 @@ import { NavigationGuard } from "./guards/navigation.guard";
 import { GameGuard } from "./guards/game.guard";
 
 import { PlayersComponent } from "./views/players/players.component";
-import { ScoreComponent } from "./views/score/score.component";
+import { GameComponent } from "./views/game/game.component";
+import { GoalsComponent } from "./views/goals/goals.component";
 import { ResultComponent } from "./views/result/result.component";
 
 const routes: Routes = [
@@ -23,8 +24,13 @@ const routes: Routes = [
     canDeactivate: [NavigationGuard]
   },
   {
-    path: "score",
-    component: ScoreComponent,
+    path: "game",
+    component: GameComponent,
+    canDeactivate: [NavigationGuard]
+  },
+  {
+    path: "goals",
+    component: GoalsComponent,
     canDeactivate: [NavigationGuard]
   },
   {
