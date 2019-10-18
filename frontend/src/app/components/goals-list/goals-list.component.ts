@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 
 import { Goal } from "../../models/goal";
 import { PlayerService } from "../../services/player.service";
@@ -24,8 +25,20 @@ export class GoalsListComponent implements OnInit {
   }
 
   deleteGoal(goal: Goal): void {
-    this.gameService.deleteGoal(goal.team);
-    this.playerService.deleteGoal(goal.id);
-    this.router.navigate(["/game"]);
+    Swal.fire({
+      text: "Remove goal at from " + goal.name + "?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!",
+      reverseButtons: true
+    }).then(result => {
+      if (result.value) {
+        this.gameService.deleteGoal(goal.team);
+        this.playerService.deleteGoal(goal.id);
+        this.router.navigate(["/game"]);
+      }
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Subscription } from "rxjs";
+import Swal from "sweetalert2";
 
 import { Player } from "../../models/player";
 import { PlayerService } from "../../services/player.service";
@@ -63,11 +64,35 @@ export class PlayersListComponent implements OnInit {
   }
 
   addGoal(player: Player): void {
-    this.gameService.addGoal(player.team);
-    this.playerService.addGoal(player);
+    Swal.fire({
+      text: "Add goal for " + player.name + "?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, it was a goal!",
+      reverseButtons: true
+    }).then(result => {
+      if (result.value) {
+        this.gameService.addGoal(player.team);
+        this.playerService.addGoal(player);
+      }
+    });
   }
 
   deletePlayer(player: Player): void {
-    this.playerService.deletePlayer(player);
+    Swal.fire({
+      text: "Remove player " + player.name + "?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove him/her!",
+      reverseButtons: true
+    }).then(result => {
+      if (result.value) {
+        this.playerService.deletePlayer(player);
+      }
+    });
   }
 }

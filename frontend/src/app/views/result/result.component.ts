@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 
 import { Game } from "../../models/game";
 import { GameService } from "../../services/game.service";
@@ -28,8 +29,21 @@ export class ResultComponent implements OnInit {
   }
 
   resetGame(): void {
-    this.playerService.reset();
-    this.gameService.reset();
-    this.router.navigateByUrl("/");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reset game!",
+      reverseButtons: true
+    }).then(result => {
+      if (result.value) {
+        this.playerService.reset();
+        this.gameService.reset();
+        this.router.navigateByUrl("/");
+      }
+    });
   }
 }
