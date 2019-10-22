@@ -13,6 +13,7 @@ import { PlayersListComponent } from "./components/players-list/players-list.com
 import { AddPlayerComponent } from "./components/add-player/add-player.component";
 import { GoalsListComponent } from "./components/goals-list/goals-list.component";
 import { GoalsComponent } from "./views/goals/goals.component";
+import { CountdownComponent } from './components/countdown/countdown.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { GoalsComponent } from "./views/goals/goals.component";
     PlayersListComponent,
     AddPlayerComponent,
     GoalsListComponent,
-    GoalsComponent
+    GoalsComponent,
+    CountdownComponent
   ],
   imports: [
     BrowserModule,
