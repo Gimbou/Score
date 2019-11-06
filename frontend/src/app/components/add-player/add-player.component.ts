@@ -6,7 +6,7 @@ import { Player } from "src/app/models/player";
 @Component({
   selector: "app-add-player",
   templateUrl: "./add-player.component.html",
-  styleUrls: ["./add-player.component.sass"]
+  styleUrls: ["./add-player.component.scss"]
 })
 export class AddPlayerComponent implements OnInit {
   constructor(private playerService: PlayerService) {}

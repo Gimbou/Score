@@ -9,7 +9,7 @@ import { GameService } from "../../services/game.service";
 @Component({
   selector: "app-goals-list",
   templateUrl: "./goals-list.component.html",
-  styleUrls: ["./goals-list.component.sass"]
+  styleUrls: ["./goals-list.component.scss"]
 })
 export class GoalsListComponent implements OnInit {
   goals: [Goal];

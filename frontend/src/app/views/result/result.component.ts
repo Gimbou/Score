@@ -9,7 +9,7 @@ import { PlayerService } from "../../services/player.service";
 @Component({
   selector: "app-result",
   templateUrl: "./result.component.html",
-  styleUrls: ["./result.component.sass"]
+  styleUrls: ["./result.component.scss"]
 })
 export class ResultComponent implements OnInit {
   game: Game;

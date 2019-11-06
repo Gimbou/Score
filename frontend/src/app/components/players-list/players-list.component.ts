@@ -9,7 +9,7 @@ import { GameService } from "../../services/game.service";
 @Component({
   selector: "app-players-list",
   templateUrl: "./players-list.component.html",
-  styleUrls: ["./players-list.component.sass"]
+  styleUrls: ["./players-list.component.scss"]
 })
 export class PlayersListComponent implements OnInit {
   @Input() showScore: boolean = false;

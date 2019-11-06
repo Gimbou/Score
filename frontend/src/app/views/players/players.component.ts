@@ -6,7 +6,7 @@ import { PlayerService } from "src/app/services/player.service";
 @Component({
   selector: "app-players",
   templateUrl: "./players.component.html",
-  styleUrls: ["./players.component.sass"]
+  styleUrls: ["./players.component.scss"]
 })
 export class PlayersComponent implements OnInit {
   playerCount: number = 0;
