@@ -1,3 +1,13 @@
-<span class="score"> {{ game.score[0] }} - {{ game.score[1] }} </span>
-<app-players-list [showScore]="true"></app-players-list>
-<button (click)="resetGame()">Reset</button>
+<div class="grid-container">
+  <div class="score">
+    <fa-icon icon="tshirt" class="team-one-icon"></fa-icon>
+    {{ game.score[0] }} - {{ game.score[1] }}
+    <fa-icon icon="tshirt" class="team-two-icon"></fa-icon>
+  </div>
+  <div class="players-list">
+    <app-players-list [showScore]="true"></app-players-list>
+  </div>
+  <div class="action-buttons">
+    <button (click)="resetGame()">Reset</button>
+  </div>
+</div>

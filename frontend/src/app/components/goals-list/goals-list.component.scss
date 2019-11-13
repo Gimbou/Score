@@ -1,39 +1,37 @@
+.single-list {
+  display: grid;
+  justify-items: center;
+}
+
 .players {
-  margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 15em;
 
   & li {
-    position: relative;
     cursor: pointer;
+    color: #000;
     background-color: #eee;
-    margin: 0.9em;
-    padding: 0.3em 0;
-    height: 1.6em;
+    height: 30px;
+    width: 30vw;
+    max-width: 300px;
     border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   & li:hover {
-    color: #607d8b;
+    color: #000;
     background-color: #ddd;
-    left: 0.1em;
   }
+}
 
-  & .badge {
-    display: inline-block;
-    font-size: small;
-    color: white;
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color: #405061;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
-    height: 1.8em;
-    min-width: 16px;
-    text-align: center;
-    margin-right: 0.8em;
-    border-radius: 4px 0 0 4px;
-  }
+.team-one-icon {
+  color: #000;
+}
+
+.team-two-icon {
+  color: #ff6600;
 }
