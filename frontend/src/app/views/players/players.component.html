@@ -1,0 +1,14 @@
+<div class="grid-container">
+  <div class="add-player">
+    <app-add-player></app-add-player>
+  </div>
+  <div class="players-list">
+    <app-players-list></app-players-list>
+  </div>
+  <div class="action-buttons">
+    <div *ngIf="playerCount">
+      <button (click)="shuffle()">Shuffle</button>
+      <button *ngIf="playersShuffled" routerLink="/game">Start</button>
+    </div>
+  </div>
+</div>

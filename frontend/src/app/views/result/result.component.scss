@@ -1,0 +1,38 @@
+.score {
+  grid-area: score;
+  font-size: 100px;
+}
+
+.players-list {
+  grid-area: playersList;
+}
+
+.action-buttons {
+  grid-area: actionButtons;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "score"
+    "playersList"
+    "actionButtons";
+  grid-gap: 1em;
+  padding: 1em;
+  height: 100vh;
+  width: 100vw;
+}
+
+.grid-container > div {
+  text-align: center;
+}
+
+.team-one-icon {
+  color: #000;
+  font-size: 50px;
+}
+
+.team-two-icon {
+  color: #ff6600;
+  font-size: 50px;
+}

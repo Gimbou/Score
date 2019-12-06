@@ -1,0 +1,37 @@
+.single-list {
+  display: grid;
+  justify-items: center;
+}
+
+.players {
+  list-style-type: none;
+  padding: 0;
+
+  & li {
+    cursor: pointer;
+    color: #000;
+    background-color: #eee;
+    height: 30px;
+    width: 30vw;
+    max-width: 300px;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  & li:hover {
+    color: #000;
+    background-color: #ddd;
+  }
+}
+
+.team-one-icon {
+  color: #000;
+}
+
+.team-two-icon {
+  color: #ff6600;
+}

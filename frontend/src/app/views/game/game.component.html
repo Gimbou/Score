@@ -1,0 +1,21 @@
+<div class="grid-container">
+  <div class="countdown">
+    <app-countdown [endTimeHours]="20" [endTimeMinutes]="00"></app-countdown>
+  </div>
+  <div class="score">
+    <fa-icon icon="tshirt" class="team-one-icon"></fa-icon>
+    {{ game.score[0] }} - {{ game.score[1] }}
+    <fa-icon icon="tshirt" class="team-two-icon"></fa-icon>
+  </div>
+  <div class="players-list">
+    <app-players-list
+      [addGoalAllowed]="true"
+      [showScore]="true"
+    ></app-players-list>
+  </div>
+  <div class="action-buttons">
+    <app-add-player></app-add-player>
+    <button routerLink="/goals">Show goals</button>
+    <button (click)="endGame()">End game</button>
+  </div>
+</div>
