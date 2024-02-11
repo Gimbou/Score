@@ -1,21 +1,18 @@
 <button routerLink="/game">Back</button>
 <div class="single-list">
   <ul class="players">
-    <li *ngFor="let goal of goals" (click)="deleteGoal(goal)">
-      <span class="player"
-        ><fa-icon
-          *ngIf="goal.team == 1"
-          icon="tshirt"
-          class="team-one-icon"
-        ></fa-icon
-        ><fa-icon
-          *ngIf="goal.team == 2"
-          icon="tshirt"
-          class="team-two-icon"
-        ></fa-icon>
+    @for (goal of goals; track $index) {
+    <li (click)="deleteGoal(goal)">
+      <span class="player">
+        @if (goal.team == 1) {
+        <fa-icon [icon]="faTshirt" class="team-one-icon"></fa-icon>
+        } @if (goal.team == 2) {
+        <fa-icon [icon]="faTshirt" class="team-two-icon"></fa-icon>
+        }
         {{ goal.name }}</span
       >
-      <span class="time">{{ goal.time | date: "HH:mm" }}</span>
+      <span class="time">{{ goal.time | date : "HH:mm" }}</span>
     </li>
+    }
   </ul>
 </div>

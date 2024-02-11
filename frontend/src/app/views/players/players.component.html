@@ -6,9 +6,13 @@
     <app-players-list></app-players-list>
   </div>
   <div class="action-buttons">
-    <div *ngIf="playerCount">
+    @if (playerCount) {
+    <div>
       <button (click)="shuffle()">Shuffle</button>
-      <button *ngIf="playersShuffled" routerLink="/game">Start</button>
+      @if (playersShuffled) {
+      <button (click)="startGame()">Start</button>
+      }
     </div>
+    }
   </div>
 </div>

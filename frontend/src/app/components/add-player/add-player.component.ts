@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { PlayerService } from "../../services/player.service";
-import { Player } from "src/app/models/player";
+import { PlayerService } from '../../services/player.service';
+import { Player } from '../../../../src/app/models/player';
 
 @Component({
-  selector: "app-add-player",
-  templateUrl: "./add-player.component.html",
-  styleUrls: ["./add-player.component.scss"]
+  selector: 'app-add-player',
+  standalone: true,
+  imports: [],
+  templateUrl: './add-player.component.html',
+  styleUrl: './add-player.component.scss',
 })
-export class AddPlayerComponent implements OnInit {
+export class AddPlayerComponent {
   constructor(private playerService: PlayerService) {}
-
-  ngOnInit() {}
 
   add(name: string): void {
     name = name.trim();

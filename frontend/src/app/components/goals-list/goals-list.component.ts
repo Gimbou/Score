@@ -1,18 +1,24 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import Swal from "sweetalert2";
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTshirt } from '@fortawesome/free-solid-svg-icons';
 
-import { Goal } from "../../models/goal";
-import { PlayerService } from "../../services/player.service";
-import { GameService } from "../../services/game.service";
+import { Goal } from '../../models/goal';
+import { PlayerService } from '../../services/player.service';
+import { GameService } from '../../services/game.service';
 
 @Component({
-  selector: "app-goals-list",
-  templateUrl: "./goals-list.component.html",
-  styleUrls: ["./goals-list.component.scss"]
+  selector: 'app-goals-list',
+  standalone: true,
+  imports: [CommonModule, RouterLink, FontAwesomeModule],
+  templateUrl: './goals-list.component.html',
+  styleUrl: './goals-list.component.scss',
 })
 export class GoalsListComponent implements OnInit {
-  goals: [Goal];
+  goals!: [Goal];
+  faTshirt = faTshirt;
 
   constructor(
     private playerService: PlayerService,
@@ -26,18 +32,18 @@ export class GoalsListComponent implements OnInit {
 
   deleteGoal(goal: Goal): void {
     Swal.fire({
-      text: "Remove goal at from " + goal.name + "?",
-      type: "warning",
+      text: 'Remove goal at from ' + goal.name + '?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, remove it!",
-      reverseButtons: true
-    }).then(result => {
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove it!',
+      reverseButtons: true,
+    }).then((result) => {
       if (result.value) {
-        this.gameService.deleteGoal(goal.team);
-        this.playerService.deleteGoal(goal.id);
-        this.router.navigate(["/game"]);
+        this.gameService.deleteGoal(goal.team!);
+        this.playerService.deleteGoal(goal.id!);
+        this.router.navigate(['/game']);
       }
     });
   }

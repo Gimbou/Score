@@ -1,14 +1,17 @@
-import { Component } from "@angular/core";
-import { LocationStrategy } from "@angular/common";
-import { NavigationService } from "./services/navigation.service";
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { LocationStrategy } from '@angular/common';
+import { NavigationService } from './services/navigation.service';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = "Score";
+  title = 'Score';
 
   constructor(
     private location: LocationStrategy,

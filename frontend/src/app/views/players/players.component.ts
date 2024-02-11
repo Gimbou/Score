@@ -1,20 +1,31 @@
-import { Component, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-import { PlayerService } from "src/app/services/player.service";
+import { PlayerService } from '../../../../src/app/services/player.service';
+import { GameService } from '../../../../src/app/services/game.service';
+
+import { AddPlayerComponent } from '../../../../src/app/components/add-player/add-player.component';
+import { PlayersListComponent } from '../../../../src/app/components/players-list/players-list.component';
 
 @Component({
-  selector: "app-players",
-  templateUrl: "./players.component.html",
-  styleUrls: ["./players.component.scss"]
+  selector: 'app-players',
+  standalone: true,
+  imports: [RouterLink, AddPlayerComponent, PlayersListComponent],
+  templateUrl: './players.component.html',
+  styleUrl: './players.component.scss',
 })
 export class PlayersComponent implements OnInit {
   playerCount: number = 0;
   playersShuffled: boolean = false;
-  _subscription: Subscription;
+  private _subscription: Subscription;
 
-  constructor(private playerService: PlayerService) {
-    this._subscription = this.playerService.playersChange.subscribe(value => {
+  constructor(
+    private playerService: PlayerService,
+    private gameService: GameService,
+    private router: Router
+  ) {
+    this._subscription = this.playerService.playersChange.subscribe((value) => {
       this.setPlayerCount();
       this.setPlayersShuffled();
     });
@@ -40,5 +51,10 @@ export class PlayersComponent implements OnInit {
   shuffle(): void {
     this.playerService.shuffleTeams();
     this.playerService.setShuffled(true);
+  }
+
+  startGame(): void {
+    this.gameService.startGame();
+    this.router.navigate(['/game']);
   }
 }

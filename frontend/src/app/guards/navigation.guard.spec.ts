@@ -1,15 +1,17 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { CanDeactivateFn } from '@angular/router';
 
-import { NavigationGuard } from './navigation.guard';
+import { navigationGuard } from './navigation.guard';
 
-describe('NavigationGuard', () => {
+describe('navigationGuard', () => {
+  const executeGuard: CanDeactivateFn = (...guardParameters) => 
+      TestBed.runInInjectionContext(() => navigationGuard(...guardParameters));
+
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [NavigationGuard]
-    });
+    TestBed.configureTestingModule({});
   });
 
-  it('should ...', inject([NavigationGuard], (guard: NavigationGuard) => {
-    expect(guard).toBeTruthy();
-  }));
+  it('should be created', () => {
+    expect(executeGuard).toBeTruthy();
+  });
 });

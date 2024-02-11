@@ -1,12 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from '@angular/core';
+
+import { GoalsListComponent } from '../../components/goals-list/goals-list.component';
 
 @Component({
-  selector: "app-goals",
-  templateUrl: "./goals.component.html",
-  styleUrls: ["./goals.component.scss"]
+  selector: 'app-goals',
+  standalone: true,
+  imports: [GoalsListComponent],
+  templateUrl: './goals.component.html',
+  styleUrl: './goals.component.scss',
 })
-export class GoalsComponent implements OnInit {
+export class GoalsComponent {
   constructor() {}
-
-  ngOnInit() {}
 }

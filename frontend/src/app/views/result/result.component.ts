@@ -1,18 +1,24 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import Swal from "sweetalert2";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTshirt } from '@fortawesome/free-solid-svg-icons';
 
-import { Game } from "../../models/game";
-import { GameService } from "../../services/game.service";
-import { PlayerService } from "../../services/player.service";
+import { Game } from '../../models/game';
+import { GameService } from '../../services/game.service';
+import { PlayerService } from '../../services/player.service';
+import { PlayersListComponent } from '../../components/players-list/players-list.component';
 
 @Component({
-  selector: "app-result",
-  templateUrl: "./result.component.html",
-  styleUrls: ["./result.component.scss"]
+  selector: 'app-result',
+  standalone: true,
+  imports: [PlayersListComponent, FontAwesomeModule],
+  templateUrl: './result.component.html',
+  styleUrl: './result.component.scss',
 })
 export class ResultComponent implements OnInit {
-  game: Game;
+  game: Game = new Game();
+  faTshirt = faTshirt;
 
   constructor(
     private router: Router,
@@ -30,19 +36,19 @@ export class ResultComponent implements OnInit {
 
   resetGame(): void {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      type: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, reset game!",
-      reverseButtons: true
-    }).then(result => {
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, reset game!',
+      reverseButtons: true,
+    }).then((result) => {
       if (result.value) {
         this.playerService.reset();
         this.gameService.reset();
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl('/');
       }
     });
   }

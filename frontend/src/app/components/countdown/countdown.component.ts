@@ -1,19 +1,22 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: "app-countdown",
-  templateUrl: "./countdown.component.html",
-  styleUrls: ["./countdown.component.scss"]
+  selector: 'app-countdown',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './countdown.component.html',
+  styleUrl: './countdown.component.scss',
 })
 export class CountdownComponent implements OnInit {
-  @Input() endTimeHours: number;
-  @Input() endTimeMinutes: number;
+  @Input() endTimeHours!: number;
+  @Input() endTimeMinutes!: number;
 
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
   soundPlayed: boolean = false;
-  counter;
+  counter!: NodeJS.Timeout;
 
   constructor() {}
 
@@ -49,7 +52,7 @@ export class CountdownComponent implements OnInit {
         this.seconds = -this.seconds;
 
         if (!this.soundPlayed) {
-          const sound = new Audio("../../../assets/horn.mp3");
+          const sound = new Audio('../../../assets/horn.mp3');
           sound.load();
           sound.play();
           this.soundPlayed = true;

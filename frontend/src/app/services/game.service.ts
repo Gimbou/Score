@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
-import { Game } from "../models/game";
-import { Subject } from "rxjs";
+import { Game } from '../models/game';
+import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class GameService {
   game: Game = { score: [0, 0] };
@@ -13,12 +13,14 @@ export class GameService {
   constructor() {}
 
   setLocalStorage() {
-    localStorage.setItem("currentGame", JSON.stringify(this.game));
+    localStorage.setItem('currentGame', JSON.stringify(this.game));
     this.gameChange.next(this.game);
   }
 
   getLocalStorage() {
-    const currentGame = JSON.parse(localStorage.getItem("currentGame"));
+    const currentGame = JSON.parse(
+      localStorage.getItem('currentGame') as string
+    );
 
     if (currentGame) {
       this.game = currentGame;
@@ -26,7 +28,7 @@ export class GameService {
   }
 
   clearLocalStorage() {
-    localStorage.removeItem("currentGame");
+    localStorage.removeItem('currentGame');
   }
 
   getGame() {
@@ -72,13 +74,13 @@ export class GameService {
 
   addGoal(team: number) {
     this.getLocalStorage();
-    this.game.score[team - 1] += 1;
+    this.game.score![team - 1] += 1;
     this.setLocalStorage();
   }
 
   deleteGoal(team: number) {
     this.getLocalStorage();
-    this.game.score[team - 1] -= 1;
+    this.game.score![team - 1] -= 1;
     this.setLocalStorage();
   }
 

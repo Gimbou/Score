@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
-import { Player } from "../models/player";
-import { Goal } from "../models/goal";
-import { Subject } from "rxjs";
+import { Player } from '../models/player';
+import { Goal } from '../models/goal';
+import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class PlayerService {
-  shuffled: boolean = false;
-  nextGoalId: number = 1;
-  players: Player[] = [];
+  private shuffled: boolean = false;
+  private nextGoalId: number = 1;
+  private players: Player[] = [];
   playersChange: Subject<Player[]> = new Subject<Player[]>();
 
   constructor() {}
@@ -19,16 +19,18 @@ export class PlayerService {
     const currentPlayers = {
       shuffled: this.shuffled,
       nextGoalId: this.nextGoalId,
-      players: this.players
+      players: this.players,
     };
-    localStorage.setItem("currentPlayers", JSON.stringify(currentPlayers));
+    localStorage.setItem('currentPlayers', JSON.stringify(currentPlayers));
     this.playersChange.next(this.players);
   }
 
   getLocalStorage() {
-    const currentPlayers = JSON.parse(localStorage.getItem("currentPlayers"));
+    const currentPlayers = JSON.parse(
+      localStorage.getItem('currentPlayers') || '{}'
+    );
 
-    if (currentPlayers) {
+    if (Object.keys(currentPlayers).length !== 0) {
       this.shuffled = currentPlayers.shuffled;
       this.nextGoalId = currentPlayers.nextGoalId;
       this.players = currentPlayers.players;
@@ -36,47 +38,53 @@ export class PlayerService {
   }
 
   clearLocalStorage() {
-    localStorage.removeItem("currentPlayers");
+    localStorage.removeItem('currentPlayers');
   }
 
   getPlayers() {
     this.getLocalStorage();
-    return this.players;
+    return this.players || [];
   }
 
   addPlayer(player: Player) {
     this.getLocalStorage();
 
-    if (!this.players.filter(p => p.name === player.name).length) {
-      if (this.shuffled) {
-        const teamOneCount = this.players.filter(p => p.team === 1).length;
-        const teamTwoCount = this.players.filter(p => p.team === 2).length;
-        let nextTeam = 1;
+    if (
+      this.players &&
+      this.players.filter((p) => p.name === player.name).length
+    ) {
+      window.alert('Player with the same name already added!');
+      return;
+    }
 
-        if (teamOneCount > teamTwoCount) {
-          nextTeam = 2;
-        }
+    if (this.shuffled) {
+      const teamOneCount = this.players.filter((p) => p.team === 1).length;
+      const teamTwoCount = this.players.filter((p) => p.team === 2).length;
+      let nextTeam = 1;
 
-        player.team = nextTeam;
+      if (teamOneCount > teamTwoCount) {
+        nextTeam = 2;
       }
 
-      player.goals = 0;
-      this.players.push(player);
-      this.setLocalStorage();
-    } else {
-      window.alert("Player with the same name already added!");
+      player.team = nextTeam;
     }
+
+    player.goals = 0;
+    this.players.push(player);
+    this.setLocalStorage();
   }
 
   deletePlayer(player: Player) {
     this.getLocalStorage();
-    this.players = this.players.filter(p => p.name !== player.name);
+    this.players = this.players.filter((p) => p.name !== player.name);
     this.setLocalStorage();
   }
 
   getTeam(teamNumber: number) {
     this.getLocalStorage();
-    return this.players.filter(p => p.team === teamNumber);
+    return this.players
+      ? this.players.filter((p) => p.team === teamNumber)
+      : [];
   }
 
   shuffleTeams() {
@@ -122,7 +130,9 @@ export class PlayerService {
     this.getLocalStorage();
 
     let updatedPlayer: Player = player;
-    updatedPlayer.goals += 1;
+    if (updatedPlayer.goals !== undefined) {
+      updatedPlayer.goals += 1;
+    }
 
     if (!updatedPlayer.goalsTime) {
       updatedPlayer.goalsTime = [{ id: this.nextGoalId, time: new Date() }];
@@ -132,7 +142,7 @@ export class PlayerService {
 
     this.nextGoalId += 1;
 
-    const index = this.players.findIndex(e => e.name === updatedPlayer.name);
+    const index = this.players.findIndex((e) => e.name === updatedPlayer.name);
     this.players[index] = updatedPlayer;
 
     this.setLocalStorage();
@@ -141,14 +151,14 @@ export class PlayerService {
   deleteGoal(id: number) {
     this.getLocalStorage();
 
-    this.players.forEach(p => {
+    this.players.forEach((p) => {
       if (p.goalsTime) {
-        const index = p.goalsTime.findIndex(e => e.id === id);
+        const index = p.goalsTime.findIndex((e) => e.id === id);
         if (index > -1) {
           const playerIndex = this.players.indexOf(p);
           p.goalsTime.splice(index, 1);
           this.players[playerIndex].goalsTime = p.goalsTime;
-          this.players[playerIndex].goals -= 1;
+          this.players[playerIndex].goals! -= 1;
         }
       }
     });
@@ -162,14 +172,14 @@ export class PlayerService {
     let appendedGoalsTime: Goal;
 
     if (this.players) {
-      this.players.forEach(p => {
+      this.players.forEach((p) => {
         if (p.goalsTime) {
-          p.goalsTime.forEach(g => {
+          p.goalsTime.forEach((g) => {
             appendedGoalsTime = {
               id: g.id,
               time: g.time,
               name: p.name,
-              team: p.team
+              team: p.team,
             };
             if (!goals) {
               goals = [appendedGoalsTime];
@@ -179,12 +189,12 @@ export class PlayerService {
           });
         }
       });
-      if (goals) {
-        goals.sort((a, b) => (a.id < b.id ? 1 : b.id < a.id ? -1 : 0));
+      if (goals!) {
+        goals.sort((a, b) => (a.id! < b.id! ? 1 : b.id! < a.id! ? -1 : 0));
       }
     }
 
-    return goals;
+    return goals!;
   }
 
   reset() {

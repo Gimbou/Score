@@ -1,44 +1,50 @@
-<div *ngIf="showTeams; then teamsList; else singleList"></div>
-<ng-template #singleList>
-  <div class="single-list">
+@if (showTeams) {
+<div class="grid-container">
+  <div class="team-one">
     <ul class="players">
-      <li *ngFor="let player of players" (click)="deletePlayer(player)">
-        {{ player.name }}
+      @for (player of teamOne; track $index) {
+      <li
+        (click)="addGoalAllowed && addGoal(player)"
+        (click)="deleteAllowed && deletePlayer(player)"
+      >
+        <span class="player"
+          ><fa-icon [icon]="faTshirt" class="team-one-icon"></fa-icon>
+          {{ player.name }}</span
+        >
+        @if (showScore) {
+        <span>{{ player.goals }}</span>
+        }
       </li>
+      }
     </ul>
   </div>
-</ng-template>
-<ng-template #teamsList>
-  <div class="grid-container">
-    <div class="team-one">
-      <ul class="players">
-        <li
-          *ngFor="let player of teamOne"
-          (click)="addGoalAllowed && addGoal(player)"
-          (click)="deleteAllowed && deletePlayer(player)"
+  <div class="team-two">
+    <ul class="players">
+      @for (player of teamTwo; track $index) {
+      <li
+        (click)="addGoalAllowed && addGoal(player)"
+        (click)="deleteAllowed && deletePlayer(player)"
+      >
+        <span class="player"
+          ><fa-icon [icon]="faTshirt" class="team-two-icon"></fa-icon>
+          {{ player.name }}</span
         >
-          <span class="player"
-            ><fa-icon icon="tshirt" class="team-one-icon"></fa-icon>
-            {{ player.name }}</span
-          >
-          <span *ngIf="showScore">{{ player.goals }}</span>
-        </li>
-      </ul>
-    </div>
-    <div class="team-two">
-      <ul class="players">
-        <li
-          *ngFor="let player of teamTwo"
-          (click)="addGoalAllowed && addGoal(player)"
-          (click)="deleteAllowed && deletePlayer(player)"
-        >
-          <span class="player"
-            ><fa-icon icon="tshirt" class="team-two-icon"></fa-icon>
-            {{ player.name }}</span
-          >
-          <span *ngIf="showScore">{{ player.goals }}</span>
-        </li>
-      </ul>
-    </div>
+        @if (showScore) {
+        <span>{{ player.goals }}</span>
+        }
+      </li>
+      }
+    </ul>
   </div>
-</ng-template>
+</div>
+} @else {
+<div class="single-list">
+  <ul class="players">
+    @for (player of players; track $index) {
+    <li (click)="deletePlayer(player)">
+      {{ player.name }}
+    </li>
+    }
+  </ul>
+</div>
+}
