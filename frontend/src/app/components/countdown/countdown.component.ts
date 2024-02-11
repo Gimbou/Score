@@ -56,6 +56,10 @@ export class CountdownComponent implements OnInit {
           sound.load();
           sound.play();
           this.soundPlayed = true;
+          clearInterval(this.counter);
+          this.hours = 0;
+          this.minutes = 0;
+          this.seconds = 0;
         }
       }
     }, 1000);

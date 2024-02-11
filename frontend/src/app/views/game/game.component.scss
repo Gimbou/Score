@@ -1,18 +1,41 @@
 .countdown {
+  display: flex;
   grid-area: countdown;
+  height: 3vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .score {
+  display: flex;
   grid-area: score;
   font-size: 100px;
+  height: 20vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .players-list {
   grid-area: playersList;
+  height: 58vh;
 }
 
 .action-buttons {
+  display: flex;
+  flex-flow: row wrap;
   grid-area: actionButtons;
+  height: 9vh;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.buttons {
+  width: 100%;
+}
+
+.line-break {
+  width: 100%;
 }
 
 .grid-container {
@@ -34,10 +57,12 @@
 
 .team-one-icon {
   color: #000;
-  font-size: 50px;
+  font-size: 100px;
+  margin: 40px;
 }
 
 .team-two-icon {
   color: #ff6600;
-  font-size: 50px;
+  font-size: 100px;
+  margin: 40px;
 }

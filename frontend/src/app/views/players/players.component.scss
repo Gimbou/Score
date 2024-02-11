@@ -1,13 +1,22 @@
 .add-player {
+  display: flex;
   grid-area: addPlayer;
+  height: 5vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .players-list {
   grid-area: playersList;
+  height: 80vh;
 }
 
 .action-buttons {
+  display: flex;
   grid-area: actionButtons;
+  height: 5vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .grid-container {

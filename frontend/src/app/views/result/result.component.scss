@@ -1,14 +1,23 @@
 .score {
+  display: flex;
   grid-area: score;
   font-size: 100px;
+  height: 23vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .players-list {
   grid-area: playersList;
+  height: 62vh;
 }
 
 .action-buttons {
+  display: flex;
   grid-area: actionButtons;
+  height: 5vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .grid-container {
@@ -29,10 +38,12 @@
 
 .team-one-icon {
   color: #000;
-  font-size: 50px;
+  font-size: 100px;
+  margin: 40px;
 }
 
 .team-two-icon {
   color: #ff6600;
-  font-size: 50px;
+  font-size: 100px;
+  margin: 40px;
 }
