@@ -21,12 +21,17 @@ export class CountdownComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.soundPlayed = false;
+
     const endTime = new Date();
+    const currentTime = new Date().getTime();
     endTime.setHours(this.endTimeHours);
     endTime.setMinutes(this.endTimeMinutes);
     endTime.setSeconds(0);
 
-    this.startCountdown(endTime);
+    if (endTime.getTime() - currentTime > 0) {
+      this.startCountdown(endTime);
+    }
   }
 
   ngOnDestroy() {

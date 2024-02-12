@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1707759038593,
-  "index": "/index.html",
+  "timestamp": 1707761645287,
+  "index": "/Score/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -11,12 +11,12 @@
         "ignoreVary": true
       },
       "urls": [
-        "/favicon.ico",
-        "/index.html",
-        "/main-LDGUGA4U.js",
-        "/manifest.webmanifest",
-        "/polyfills-RX4V3J3S.js",
-        "/styles-SHEEEMVR.css"
+        "/Score/favicon.ico",
+        "/Score/index.html",
+        "/Score/main-BD7YRYQS.js",
+        "/Score/manifest.webmanifest",
+        "/Score/polyfills-RX4V3J3S.js",
+        "/Score/styles-SHEEEMVR.css"
       ],
       "patterns": []
     },
@@ -28,36 +28,36 @@
         "ignoreVary": true
       },
       "urls": [
-        "/assets/horn.mp3",
-        "/assets/icons/icon-128x128.png",
-        "/assets/icons/icon-144x144.png",
-        "/assets/icons/icon-152x152.png",
-        "/assets/icons/icon-192x192.png",
-        "/assets/icons/icon-384x384.png",
-        "/assets/icons/icon-512x512.png",
-        "/assets/icons/icon-72x72.png",
-        "/assets/icons/icon-96x96.png"
+        "/Score/assets/horn.mp3",
+        "/Score/assets/icons/icon-128x128.png",
+        "/Score/assets/icons/icon-144x144.png",
+        "/Score/assets/icons/icon-152x152.png",
+        "/Score/assets/icons/icon-192x192.png",
+        "/Score/assets/icons/icon-384x384.png",
+        "/Score/assets/icons/icon-512x512.png",
+        "/Score/assets/icons/icon-72x72.png",
+        "/Score/assets/icons/icon-96x96.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/assets/horn.mp3": "0f5e27bb64dcbacf4a389714a945974ad611066d",
-    "/assets/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
-    "/assets/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
-    "/assets/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
-    "/assets/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
-    "/assets/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
-    "/assets/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
-    "/assets/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
-    "/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/index.html": "49e8200392da0a32783dac6c6169c83af2e74680",
-    "/main-LDGUGA4U.js": "4d686284871a29254f21ef331705d5c5e7f584fb",
-    "/manifest.webmanifest": "33d12f384c176a18fa90d1a19bc37d0bc0710272",
-    "/polyfills-RX4V3J3S.js": "6b4c4ea33aa92bce0b91df442a680ed73e4303db",
-    "/styles-SHEEEMVR.css": "e0ab2edaf1e8b6ef3b69f061218d6bd3488ff7d4"
+    "/Score/assets/horn.mp3": "0f5e27bb64dcbacf4a389714a945974ad611066d",
+    "/Score/assets/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/Score/assets/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/Score/assets/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/Score/assets/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/Score/assets/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/Score/assets/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/Score/assets/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/Score/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/Score/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/Score/index.html": "7ab79556af05a99c512a662d2987f7d307a3e6c2",
+    "/Score/main-BD7YRYQS.js": "e51540f0ba6e4d13dbaf8df4fe9f5325f9948f4d",
+    "/Score/manifest.webmanifest": "33d12f384c176a18fa90d1a19bc37d0bc0710272",
+    "/Score/polyfills-RX4V3J3S.js": "6b4c4ea33aa92bce0b91df442a680ed73e4303db",
+    "/Score/styles-SHEEEMVR.css": "e0ab2edaf1e8b6ef3b69f061218d6bd3488ff7d4"
   },
   "navigationUrls": [
     {
