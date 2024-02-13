@@ -1,17 +1,21 @@
 .single-list {
-  display: grid;
+  display: flex;
   justify-items: center;
   height: 100%;
 }
 
 .team-one {
+  display: flex;
   grid-area: teamOne;
   justify-self: end;
+  height: 100%;
 }
 
 .team-two {
+  display: flex;
   grid-area: teamTwo;
   justify-self: start;
+  height: 100%;
 }
 
 .players-grid-container {
@@ -22,20 +26,23 @@
 }
 
 .players {
+  display: flex;
+  flex-direction: column;
   list-style-type: none;
   padding: 0;
 
   & li {
+    display: flex;
     cursor: pointer;
     color: #000;
     background-color: #eee;
-    height: 6vh;
+    height: 100%;
+    max-height: 70px;
     width: 30vw;
     max-width: 300px;
     border-radius: 4px;
     padding: 5px;
     margin-bottom: 10px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
   }

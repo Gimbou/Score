@@ -1,7 +1,6 @@
 .countdown {
   display: flex;
   grid-area: countdown;
-  height: 3vh;
   align-items: center;
   justify-content: center;
 }
@@ -9,22 +8,22 @@
 .score {
   display: flex;
   grid-area: score;
-  font-size: 100px;
-  height: 20vh;
+  font-size: 15vh;
   align-items: center;
   justify-content: center;
 }
 
 .players-list {
+  display: flex;
   grid-area: playersList;
-  height: 58vh;
+  align-items: stretch;
+  justify-content: center;
 }
 
 .action-buttons {
   display: flex;
   flex-flow: row wrap;
   grid-area: actionButtons;
-  height: 9vh;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -45,10 +44,12 @@
     "score"
     "playersList"
     "actionButtons";
+  grid-template-rows: 30px 1fr 3fr 80px;
   grid-gap: 1em;
   padding: 1em;
   height: 100vh;
   width: 100vw;
+  margin: 0;
 }
 
 .grid-container > div {
@@ -57,12 +58,12 @@
 
 .team-one-icon {
   color: #000;
-  font-size: 100px;
-  margin: 40px;
+  font-size: 8vh;
+  margin-right: 40px;
 }
 
 .team-two-icon {
   color: #ff6600;
-  font-size: 100px;
-  margin: 40px;
+  font-size: 8vh;
+  margin-left: 40px;
 }

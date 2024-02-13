@@ -1,20 +1,20 @@
 .add-player {
   display: flex;
   grid-area: addPlayer;
-  height: 5vh;
   align-items: center;
   justify-content: center;
 }
 
 .players-list {
+  display: flex;
   grid-area: playersList;
-  height: 80vh;
+  align-items: stretch;
+  justify-content: center;
 }
 
 .action-buttons {
   display: flex;
   grid-area: actionButtons;
-  height: 5vh;
   align-items: center;
   justify-content: center;
 }
@@ -25,10 +25,12 @@
     "addPlayer"
     "playersList"
     "actionButtons";
+  grid-template-rows: 30px 1fr 30px;
   grid-gap: 1em;
   padding: 1em;
   height: 100vh;
   width: 100vw;
+  margin: 0;
 }
 
 .grid-container > div {

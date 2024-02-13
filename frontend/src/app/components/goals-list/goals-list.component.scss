@@ -1,23 +1,27 @@
 .single-list {
   display: grid;
   justify-items: center;
+  height: 95%;
 }
 
 .players {
+  display: flex;
+  flex-direction: column;
   list-style-type: none;
   padding: 0;
 
   & li {
+    display: flex;
     cursor: pointer;
     color: #000;
     background-color: #eee;
-    height: 30px;
+    height: 100%;
+    max-height: 70px;
     width: 30vw;
     max-width: 300px;
     border-radius: 4px;
     padding: 5px;
     margin-bottom: 10px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
   }
