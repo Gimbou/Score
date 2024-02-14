@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import Swal from 'sweetalert2';
 
 import { Player } from '../models/player';
 import { Goal } from '../models/goal';
@@ -53,7 +54,16 @@ export class PlayerService {
       this.players &&
       this.players.filter((p) => p.name === player.name).length
     ) {
-      window.alert('Player with the same name already added!');
+      Swal.fire({
+        title: "Adding failed",
+        text: "Player with the same name already added!",
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Return',
+        reverseButtons: true,
+      });
       return;
     }
 

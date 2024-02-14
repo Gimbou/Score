@@ -1,8 +1,8 @@
 {
   "name": "Score",
   "short_name": "Score",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#322f30",
+  "background_color": "#322f30",
   "display": "fullscreen",
   "orientation": "landscape",
   "scope": "./",
