@@ -3,14 +3,14 @@
   <ul class="players">
     @for (goal of goals; track $index) {
     <li (click)="deleteGoal(goal)">
-      <span class="player">
+      <span class="badge">
         @if (goal.team == 1) {
-        <fa-icon [icon]="faTshirt" class="team-one-icon"></fa-icon>
+        <fa-icon [icon]="faTshirt" class="team-one-icon-small"></fa-icon>
         } @if (goal.team == 2) {
-        <fa-icon [icon]="faTshirt" class="team-two-icon"></fa-icon>
+        <fa-icon [icon]="faTshirt" class="team-two-icon-small"></fa-icon>
         }
-        {{ goal.name }}</span
-      >
+      </span>
+      <span class="player">{{ goal.name }}</span>
       <span class="time">{{ goal.time | date : "HH:mm" }}</span>
     </li>
     }

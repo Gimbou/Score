@@ -1,5 +1,5 @@
 <div class="add-player">
-  <input id="playerName" #playerName />
+  <input id="playerName" maxlength="10" #playerName />
   <button (click)="add(playerName.value); playerName.value = ''">
     Add player
   </button>

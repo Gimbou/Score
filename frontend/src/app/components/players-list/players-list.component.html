@@ -7,10 +7,8 @@
         (click)="addGoalAllowed && addGoal(player)"
         (click)="deleteAllowed && deletePlayer(player)"
       >
-        <span class="player"
-          ><fa-icon [icon]="faTshirt" class="team-one-icon"></fa-icon>
-          {{ player.name }}</span
-        >
+        <span class="badge"><fa-icon [icon]="faTshirt" class="team-one-icon-small"></fa-icon></span>
+        <span class="player">{{ player.name }}</span>
         @if (showScore) {
         <span>{{ player.goals }}</span>
         }
@@ -25,10 +23,8 @@
         (click)="addGoalAllowed && addGoal(player)"
         (click)="deleteAllowed && deletePlayer(player)"
       >
-        <span class="player"
-          ><fa-icon [icon]="faTshirt" class="team-two-icon"></fa-icon>
-          {{ player.name }}</span
-        >
+        <span class="badge"><fa-icon [icon]="faTshirt" class="team-two-icon-small"></fa-icon></span>
+        <span class="player">{{ player.name }}</span>
         @if (showScore) {
         <span>{{ player.goals }}</span>
         }
