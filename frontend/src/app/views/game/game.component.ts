@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTshirt } from '@fortawesome/free-solid-svg-icons';
+import { faTshirt, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
 import { Game } from '../../models/game';
@@ -27,6 +27,9 @@ import { PlayersListComponent } from '../../components/players-list/players-list
 export class GameComponent implements OnInit {
   game: Game = new Game();
   faTshirt = faTshirt;
+  actionButtonsVisible: boolean = false;
+  faChevronUp = faChevronUp;
+  faChevronDown = faChevronDown;
   _subscription: Subscription;
 
   constructor(private router: Router, private gameService: GameService) {
@@ -63,5 +66,24 @@ export class GameComponent implements OnInit {
         this.router.navigateByUrl('/result');
       }
     });
+  }
+
+  toggleActionButtons(): void {
+    const gameGridContainer = document.getElementById('gameGridContainer');
+    const gameButtons = document.getElementById('gameButtons');
+
+    if(gameButtons && gameGridContainer) {
+      if (!gameButtons.style.display || gameButtons.style.display === 'none') {
+        gameGridContainer.style.gridTemplateAreas = '"countdown" "score" "playersList" "toggleActionButtons" "actionButtons"';
+        gameGridContainer.style.gridTemplateRows = '30px 1fr 3fr 30px 80px';
+        gameButtons.style.display = 'flex';
+        this.actionButtonsVisible = true;
+      } else {
+        gameGridContainer.style.gridTemplateAreas = '"countdown" "score" "playersList" "toggleActionButtons"';
+        gameGridContainer.style.gridTemplateRows = '30px 1fr 3fr 30px';
+        gameButtons.style.display = 'none';
+        this.actionButtonsVisible = false;
+      }
+    }
   }
 }

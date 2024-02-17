@@ -3,8 +3,8 @@
     "countdown"
     "score"
     "playersList"
-    "actionButtons";
-  grid-template-rows: 30px 1fr 3fr 80px;
+    "toggleActionButtons";
+  grid-template-rows: 30px 1fr 3fr 30px;
 }
 
 .countdown {
@@ -21,7 +21,27 @@
   justify-content: center;
 }
 
+#toggleActionButtons {
+  display: flex;
+  grid-area: toggleActionButtons;
+  align-items: center;
+  justify-content: center;
+}
+
+#toggleActionButtonsButton {
+  background-color: transparent;
+  border: 0;
+  width: 50%;
+  height: 100%;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
 .action-buttons {
+  display: none;
   flex-flow: row wrap;
   width: 100%;
 }

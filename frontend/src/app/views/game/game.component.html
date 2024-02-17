@@ -1,4 +1,4 @@
-<div class="grid-container">
+<div id="gameGridContainer" class="grid-container">
   <div class="countdown">
     <app-countdown [endTimeHours]="17" [endTimeMinutes]="59"></app-countdown>
   </div>
@@ -13,7 +13,16 @@
       [showScore]="true"
     ></app-players-list>
   </div>
-  <div class="action-buttons">
+  <div id="toggleActionButtons">
+    <button id="toggleActionButtonsButton" (click)="toggleActionButtons()">
+      @if (actionButtonsVisible) {
+      <fa-icon [icon]="faChevronDown"></fa-icon>
+      } @else {
+      <fa-icon [icon]="faChevronUp"></fa-icon>
+      }
+    </button>
+  </div>
+  <div id="gameButtons" class="action-buttons">
     <app-add-player></app-add-player>
     <div class="line-break"></div>
     <div class="buttons">
