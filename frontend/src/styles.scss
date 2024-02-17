@@ -23,7 +23,7 @@ button {
   border: none;
   padding: 5px 10px;
   margin: 5px;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   cursor: hand;
   font-family: Arial;
@@ -88,7 +88,7 @@ button:hover {
     max-height: 70px;
     width: 30vw;
     max-width: 300px;
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 0 0.7em 0 0.7em;
     margin-bottom: 10px;
     justify-content: space-between;
@@ -106,7 +106,7 @@ button:hover {
   padding: 0 0.7em 0 0;
   // background-color: #5a5d5f;
   // height: 100%;
-  border-radius: 4px 0 0 4px;
+  border-radius: 10px 0 0 10px;
 }
 
 .player {
