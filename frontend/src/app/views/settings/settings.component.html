@@ -1,0 +1,32 @@
+<div class="back-button"><button onclick="history.back();">Back</button></div>
+<div class="settings-container">
+  <div class="settings-grid">
+    <span class="settings-grid-item settings-label">End time</span>
+    <input
+      id="endTimeInput"
+      class="settings-grid-item"
+      type="time"
+      value="{{ endTime }}"
+      #setTimeInput
+    />
+    <button
+      class="settings-grid-item settings-input-button"
+      (click)="setTime(setTimeInput.value)"
+    >
+      Save
+    </button>
+    <span class="settings-grid-item settings-label">API password</span>
+    <input
+      id="passwordInput"
+      class="settings-grid-item"
+      type="password"
+      #loginPassword
+    />
+    <button
+      class="settings-grid-item settings-input-button"
+      (click)="login(loginPassword.value)"
+    >
+      Login
+    </button>
+  </div>
+</div>

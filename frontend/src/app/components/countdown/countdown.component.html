@@ -1,5 +1,8 @@
 <span>
+  @if (soundPlayed) { Game is over! } @else if (!counter) { No end time set or
+  it's already passed today. } @else {
   {{ hours | number : "2.0" }}:{{ minutes | number : "2.0" }}:{{
     seconds | number : "2.0"
   }}
+  }
 </span>

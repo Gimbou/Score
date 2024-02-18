@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-countdown',
@@ -9,25 +11,30 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrl: './countdown.component.scss',
 })
 export class CountdownComponent implements OnInit {
-  @Input() endTimeHours!: number;
-  @Input() endTimeMinutes!: number;
-
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
   soundPlayed: boolean = false;
   counter!: NodeJS.Timeout;
 
-  constructor() {}
+  constructor(private settingsService: SettingsService) {}
 
   ngOnInit() {
     this.soundPlayed = false;
 
     const endTime = new Date();
     const currentTime = new Date().getTime();
-    endTime.setHours(this.endTimeHours);
-    endTime.setMinutes(this.endTimeMinutes);
+    endTime.setHours(
+      Number(this.settingsService.settings.endTime.substring(0, 2))
+    );
+    endTime.setMinutes(
+      Number(this.settingsService.settings.endTime.substring(3, 5))
+    );
     endTime.setSeconds(0);
+
+    if (this.counter) {
+      clearInterval(this.counter);
+    }
 
     if (endTime.getTime() - currentTime > 0) {
       this.startCountdown(endTime);

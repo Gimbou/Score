@@ -6,6 +6,7 @@ import { PlayersComponent } from './views/players/players.component';
 import { GameComponent } from './views/game/game.component';
 import { GoalsComponent } from './views/goals/goals.component';
 import { ResultComponent } from './views/result/result.component';
+import { SettingsComponent } from './views/settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -32,5 +33,9 @@ export const routes: Routes = [
     path: 'result',
     component: ResultComponent,
     canActivate: [navigationGuard],
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
   },
 ];
