@@ -50,7 +50,10 @@
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": "ngsw-config.json"
+              "serviceWorker": "ngsw-config.json",
+              "scripts": [
+                "src/assets/scripts/google-analytics.js"
+              ]
             },
             "development": {
               "optimization": false,

@@ -45,3 +45,6 @@ Thumbs.db
 .firebaserc
 firebase.json
 /.firebase
+
+# Google Analytics
+src/assets/scripts/google-analytics.js
