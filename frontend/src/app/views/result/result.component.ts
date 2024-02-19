@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTshirt } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,7 @@ import { PlayersListComponent } from '../../components/players-list/players-list
 @Component({
   selector: 'app-result',
   standalone: true,
-  imports: [PlayersListComponent, FontAwesomeModule],
+  imports: [RouterLink, PlayersListComponent, FontAwesomeModule],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss',
 })
