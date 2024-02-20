@@ -42,6 +42,7 @@ button:hover {
   display: inline-block;
   margin: 0;
   padding: 0;
+  font-size: 30px;
 }
 
 .settings-button:hover, .back-button:hover, .game-initialization-buttons:hover {
@@ -50,13 +51,8 @@ button:hover {
 
 .settings-button, .back-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-}
-
-.game-initialization-buttons {
-  font-size: 30px;
+  top: 16px;
+  right: 16px;
 }
 
 .game-initialization-buttons.shuffle {
