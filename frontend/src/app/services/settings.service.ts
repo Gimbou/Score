@@ -44,7 +44,7 @@ export class SettingsService {
     });
     Toast.fire({
       icon: "success",
-      title: "Settings saved"
+      title: "Settings saved!"
     });
   }
 }

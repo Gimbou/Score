@@ -37,6 +37,22 @@ export class ApiService {
       const docRef = await addDoc(collection(this.db, 'games'), result);
       this.gameService.setGameUploaded();
       console.log('Document written with ID: ', docRef.id);
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Game uploaded!"
+      });
     } catch (e) {
       console.error('Error adding document: ', e);
       
@@ -53,7 +69,7 @@ export class ApiService {
       });
       Toast.fire({
         icon: "error",
-        title: "Couldn't upload game"
+        title: "Couldn't upload game!"
       });
     }
   }
