@@ -62,10 +62,26 @@ export class GameService {
     }
   }
 
+  setGameUploaded() {
+    this.getLocalStorage();
+    this.game.uploaded = true;
+    this.setLocalStorage();
+  }
+
   isGameEnded() {
     this.getLocalStorage();
 
     if (this.game.endTime) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isGameUploaded() {
+    this.getLocalStorage();
+
+    if (this.game.uploaded) {
       return true;
     } else {
       return false;

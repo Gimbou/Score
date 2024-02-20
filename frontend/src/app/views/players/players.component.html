@@ -13,9 +13,9 @@
   <div class="action-buttons">
     @if (playerCount) {
     <div>
-      <button class="game-initialization-buttons shuffle" (click)="shuffle()"><fa-icon [icon]="faDice"></fa-icon></button>
+      <button class="game-control-buttons shuffle" (click)="shuffle()"><fa-icon [icon]="faDice"></fa-icon></button>
       @if (playersShuffled) {
-      <button class="game-initialization-buttons play" (click)="startGame()"><fa-icon [icon]="faCirclePlay"></fa-icon></button>
+      <button class="game-control-buttons play" (click)="startGame()"><fa-icon [icon]="faCirclePlay"></fa-icon></button>
       }
     </div>
     }
