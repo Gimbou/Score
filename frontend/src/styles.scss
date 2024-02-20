@@ -33,16 +33,39 @@ button:hover {
   background-color: #cfd8dc;
 }
 
-.settings-button {
+.settings-button, .back-button, .game-initialization-buttons {
+  background-color: transparent;
+  border: 0;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.settings-button:hover, .back-button:hover, .game-initialization-buttons:hover {
+  background: transparent;
+}
+
+.settings-button, .back-button {
   position: absolute;
   top: 10px;
   right: 10px;
+  font-size: 20px;
 }
 
-.back-button {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+.game-initialization-buttons {
+  font-size: 30px;
+}
+
+.game-initialization-buttons.shuffle {
+  margin-right: 20px;
+}
+
+.game-initialization-buttons.play {
+  margin-left: 20px;
+  color: #02830d;
 }
 
 .grid-container {

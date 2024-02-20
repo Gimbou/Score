@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTshirt } from '@fortawesome/free-solid-svg-icons';
+import { faTshirt, faGear } from '@fortawesome/free-solid-svg-icons';
 
 import { Game } from '../../models/game';
 import { GameService } from '../../services/game.service';
@@ -19,6 +19,7 @@ import { PlayersListComponent } from '../../components/players-list/players-list
 export class ResultComponent implements OnInit {
   game: Game = new Game();
   faTshirt = faTshirt;
+  faGear = faGear;
 
   constructor(
     private router: Router,

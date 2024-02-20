@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTshirt } from '@fortawesome/free-solid-svg-icons';
+import { faTshirt, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import { Goal } from '../../models/goal';
 import { PlayerService } from '../../services/player.service';
@@ -19,6 +19,7 @@ import { GameService } from '../../services/game.service';
 export class GoalsListComponent implements OnInit {
   goals!: [Goal];
   faTshirt = faTshirt;
+  faXmark = faXmark;
 
   constructor(
     private playerService: PlayerService,

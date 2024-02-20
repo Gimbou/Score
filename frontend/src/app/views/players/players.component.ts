@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faGear, faDice, faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 
 import { PlayerService } from '../../../../src/app/services/player.service';
 import { GameService } from '../../../../src/app/services/game.service';
@@ -11,13 +13,21 @@ import { PlayersListComponent } from '../../../../src/app/components/players-lis
 @Component({
   selector: 'app-players',
   standalone: true,
-  imports: [RouterLink, AddPlayerComponent, PlayersListComponent],
+  imports: [
+    RouterLink,
+    AddPlayerComponent,
+    PlayersListComponent,
+    FontAwesomeModule,
+  ],
   templateUrl: './players.component.html',
   styleUrl: './players.component.scss',
 })
 export class PlayersComponent implements OnInit {
   playerCount: number = 0;
   playersShuffled: boolean = false;
+  faGear = faGear;
+  faDice = faDice;
+  faCirclePlay = faCirclePlay;
   private _subscription: Subscription;
 
   constructor(
