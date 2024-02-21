@@ -136,6 +136,8 @@ export class ApiService {
     } catch (err) {
       console.error('Error logging in: ', err);
 
+      this.router.navigateByUrl('/');
+
       const Toast = Swal.mixin({
         toast: true,
         position: 'top',
