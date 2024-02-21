@@ -7,6 +7,7 @@ import { GameComponent } from './views/game/game.component';
 import { GoalsComponent } from './views/goals/goals.component';
 import { ResultComponent } from './views/result/result.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { LoginComponent } from './views/login/login.component';
 
 export const routes: Routes = [
   {
@@ -37,5 +38,9 @@ export const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];

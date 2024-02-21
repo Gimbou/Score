@@ -9,7 +9,7 @@
     <app-players-list [showScore]="true"></app-players-list>
   </div>
   <div class="action-buttons">
-    @if (!gameUploaded) {
+    @if (currentUser && !gameUploaded) {
       <button class="game-control-buttons upload" (click)="uploadGame()"><fa-icon [icon]="faCloudArrowUp"></fa-icon></button>
     }
     <button class="game-control-buttons reset" (click)="resetGame()"><fa-icon [icon]="faTrash"></fa-icon></button>

@@ -15,18 +15,29 @@
     >
       Save
     </button>
-    <span class="settings-grid-item settings-label">API password</span>
-    <input
-      id="passwordInput"
-      class="settings-grid-item"
-      type="password"
-      #loginPassword
-    />
+    <span class="settings-grid-item settings-label">Email</span>
+    @if (currentUser) {
+    <span class="settings-grid-item">{{currentUserEmail}}</span>
     <button
-      class="settings-grid-item settings-input-button"
-      (click)="login(loginPassword.value)"
-    >
-      Login
-    </button>
+        class="settings-grid-item settings-input-button"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+    } @else {
+      <input
+        id="emailInput"
+        class="settings-grid-item"
+        type="email"
+        #email
+      />
+      <button
+        class="settings-grid-item settings-input-button"
+        [disabled]="emailSent"
+        (click)="login(email.value)"
+      >
+        Send login link
+      </button>
+    }
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { User } from 'firebase/auth';
 import Swal from 'sweetalert2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -26,11 +27,13 @@ import { ApiService } from '../../services/api.service';
 export class ResultComponent implements OnInit {
   game: Game = new Game();
   gameUploaded = false;
+  currentUser: User | null = null;
   faTshirt = faTshirt;
   faGear = faGear;
   faCloudArrowUp = faCloudArrowUp;
   faTrash = faTrash;
-  private _subscription: Subscription;
+  private _gameChangeSubscription: Subscription;
+  private _currentUserSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -38,14 +41,20 @@ export class ResultComponent implements OnInit {
     private gameService: GameService,
     private apiService: ApiService
   ) {
-    this._subscription = this.gameService.gameChange.subscribe((value) => {
+    this._gameChangeSubscription = this.gameService.gameChange.subscribe((value) => {
       this.setGameUploaded();
     });
+    this._currentUserSubscription = this.apiService.currentUser.subscribe(
+      (value) => {
+        this.currentUser = value;
+      }
+    );
   }
 
   ngOnInit() {
     this.getGame();
     this.setGameUploaded();
+    this.currentUser = this.apiService.getCurrentUser();
   }
 
   setGameUploaded(): void {
@@ -61,7 +70,7 @@ export class ResultComponent implements OnInit {
   }
 
   resetGame(): void {
-    if (this.gameUploaded) {
+    if (!this.currentUser || this.gameUploaded) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
