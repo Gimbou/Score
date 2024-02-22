@@ -70,7 +70,7 @@ export class ResultComponent implements OnInit {
   }
 
   resetGame(): void {
-    if (!this.currentUser || this.gameUploaded) {
+    if (this.gameUploaded) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -85,6 +85,28 @@ export class ResultComponent implements OnInit {
           this.playerService.reset();
           this.gameService.reset();
           this.router.navigateByUrl('/');
+        }
+      });
+    } else if (!this.currentUser) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Seems like the game is not yet uploaded!",
+        icon: 'warning',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        denyButtonColor: '#05d899',
+        confirmButtonText: 'Reset game anyway!',
+        denyButtonText: 'Login',
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.playerService.reset();
+          this.gameService.reset();
+          this.router.navigateByUrl('/');
+        } else if(result.isDenied) {
+          this.router.navigateByUrl('/settings');
         }
       });
     } else {
