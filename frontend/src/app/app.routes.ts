@@ -8,6 +8,7 @@ import { GoalsComponent } from './views/goals/goals.component';
 import { ResultComponent } from './views/result/result.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { LoginComponent } from './views/login/login.component';
+import { StatsComponent } from './views/stats/stats.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,10 @@ export const routes: Routes = [
     path: 'result',
     component: ResultComponent,
     canActivate: [navigationGuard],
+  },
+  {
+    path: 'stats',
+    component: StatsComponent,
   },
   {
     path: 'settings',

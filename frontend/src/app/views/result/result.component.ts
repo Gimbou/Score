@@ -9,6 +9,7 @@ import {
   faGear,
   faCloudArrowUp,
   faTrash,
+  faChartSimple,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Game } from '../../models/game';
@@ -32,6 +33,7 @@ export class ResultComponent implements OnInit {
   faGear = faGear;
   faCloudArrowUp = faCloudArrowUp;
   faTrash = faTrash;
+  faChartSimple = faChartSimple;
   private _gameChangeSubscription: Subscription;
   private _currentUserSubscription: Subscription;
 

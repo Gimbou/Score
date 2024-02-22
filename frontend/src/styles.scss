@@ -43,7 +43,7 @@ button:hover {
   color: #3a3a3a;
 }
 
-.settings-button, .back-button, .game-control-buttons {
+.settings-button, .back-button, .game-control-buttons, .stats-button {
   background-color: transparent;
   border: 0;
   color: white;
@@ -55,7 +55,7 @@ button:hover {
   font-size: 30px;
 }
 
-.settings-button:hover, .back-button:hover, .game-control-buttons:hover {
+.settings-button:hover, .back-button:hover, .game-control-buttons:hover, .stats-button:hover {
   background: transparent;
 }
 
@@ -63,6 +63,12 @@ button:hover {
   position: absolute;
   top: 16px;
   right: 16px;
+}
+
+.stats-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
 }
 
 .game-control-buttons.shuffle {

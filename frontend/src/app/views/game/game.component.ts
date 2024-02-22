@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTshirt, faChevronUp, faChevronDown, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faTshirt, faChevronUp, faChevronDown, faGear, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
 import { Game } from '../../models/game';
@@ -31,6 +31,7 @@ export class GameComponent implements OnInit {
   faChevronUp = faChevronUp;
   faChevronDown = faChevronDown;
   faGear = faGear;
+  faChartSimple = faChartSimple;
   _subscription: Subscription;
 
   constructor(private router: Router, private gameService: GameService) {

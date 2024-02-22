@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGear, faDice, faCirclePlay } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faDice, faCirclePlay, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 
 import { PlayerService } from '../../../../src/app/services/player.service';
 import { GameService } from '../../../../src/app/services/game.service';
@@ -28,6 +28,7 @@ export class PlayersComponent implements OnInit {
   faGear = faGear;
   faDice = faDice;
   faCirclePlay = faCirclePlay;
+  faChartSimple = faChartSimple;
   private _subscription: Subscription;
 
   constructor(
