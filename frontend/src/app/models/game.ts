@@ -6,4 +6,5 @@ export class Game {
   startTime?: Date;
   endTime?: Date;
   uploaded?: boolean;
+  uploadedBy?: string;
 }

@@ -17,7 +17,6 @@ import { GameService } from '../../services/game.service';
 })
 export class PlayersListComponent implements OnInit {
   @Input() showScore: boolean = false;
-  @Input() showUnknownPlayer: boolean = false;
   @Input() addGoalAllowed: boolean = false;
 
   players!: Player[];

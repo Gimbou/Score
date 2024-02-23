@@ -202,6 +202,11 @@ export class ApiService {
 
   async addResult() {
     let game = this.gameService.getGame();
+
+    if(this.auth.currentUser) {
+      game.uploadedBy = this.auth.currentUser?.uid;
+    }
+    
     const players = this.playerService.getPlayers();
     game.players = players;
     const result = game;
