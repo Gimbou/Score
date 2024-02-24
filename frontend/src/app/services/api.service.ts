@@ -4,8 +4,11 @@ import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
   collection,
-  getDocs,
+  doc,
+  getDoc,
   addDoc,
+  setDoc,
+  arrayUnion,
 } from 'firebase/firestore/lite';
 import {
   getAuth,
@@ -22,6 +25,7 @@ import Swal from 'sweetalert2';
 import { GameService } from './game.service';
 import { PlayerService } from './player.service';
 import data from '../../../firebase_config.json';
+import { Player } from '../models/player';
 
 @Injectable({
   providedIn: 'root',
@@ -203,15 +207,30 @@ export class ApiService {
   async addResult() {
     let game = this.gameService.getGame();
 
-    if(this.auth.currentUser) {
+    if (this.auth.currentUser) {
       game.uploadedBy = this.auth.currentUser?.uid;
     }
-    
+
     const players = this.playerService.getPlayers();
     game.players = players;
     const result = game;
 
     try {
+      const players = this.playerService.getPlayers();
+      let playersArray: string[] = [];
+
+      players.forEach((player) => {
+        playersArray.push(player.name);
+      });
+
+      await setDoc(
+        doc(this.db, 'players', 'playerList'),
+        {
+          players: arrayUnion(...playersArray),
+        },
+        { merge: true }
+      );
+
       const docRef = await addDoc(collection(this.db, 'games'), result);
       this.gameService.setGameUploaded();
       console.log('Document written with ID: ', docRef.id);
@@ -249,6 +268,26 @@ export class ApiService {
         icon: 'error',
         title: "Couldn't upload game!",
       });
+    }
+  }
+
+  async getPlayersList() {
+    if (this.auth.currentUser) {
+      try {
+        const playerListDoc = await getDoc(
+          doc(this.db, 'players', 'playerList')
+        );
+
+        if (playerListDoc.exists()) {
+          const playerList = playerListDoc.data();
+
+          playerList['players'].forEach((name: string) => {
+            this.playerService.addPlayer({ name: name, selected: false } as Player);
+          });
+        }
+      } catch (e) {
+        console.error('Error adding document: ', e);
+      }
     }
   }
 }

@@ -17,6 +17,7 @@ body {
   background-color: #322f30;
   box-shadow: inset 0 0 1000px 30px #111011;
   overscroll-behavior-y: contain;
+  overflow: hidden;
 }
 
 button {
@@ -71,22 +72,36 @@ button:hover {
   left: 16px;
 }
 
+.players-selected-count {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+}
+
+.game-control-buttons.download-players {
+  color: #126de4;
+}
+
 .game-control-buttons.shuffle {
+  margin-left: 20px;
   margin-right: 20px;
 }
 
 .game-control-buttons.play {
   margin-left: 20px;
+  margin-right: 20px;
   color: #02830d;
 }
 
 .game-control-buttons.upload {
+  margin-left: 20px;
   margin-right: 20px;
   color: #126de4;
 }
 
 .game-control-buttons.reset {
   margin-left: 20px;
+  margin-right: 20px;
   color: #af0000;
 }
 
@@ -128,6 +143,7 @@ button:hover {
   grid-area: playersList;
   align-items: stretch;
   justify-content: center;
+  overflow: hidden;
 }
 
 .players {
@@ -135,6 +151,7 @@ button:hover {
   flex-direction: column;
   list-style-type: none;
   padding: 0;
+  overflow-y: auto;
 
   & li {
     display: flex;
@@ -142,6 +159,7 @@ button:hover {
     color: #000;
     background-color: #eee;
     height: 100%;
+    min-height: 40px;
     max-height: 70px;
     width: 30vw;
     max-width: 300px;

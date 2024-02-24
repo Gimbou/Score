@@ -23,7 +23,7 @@ export class PlayersListComponent implements OnInit {
   teamOne!: Player[];
   teamTwo!: Player[];
   showTeams: boolean = false;
-  deleteAllowed: boolean = false;
+  playerToggleAllowed: boolean = false;
   _subscription: Subscription;
   faTshirt = faTshirt;
 
@@ -32,14 +32,14 @@ export class PlayersListComponent implements OnInit {
     private gameService: GameService
   ) {
     this._subscription = this.playerService.playersChange.subscribe((value) => {
-      this.setDeleteAllowed();
+      this.setPlayerToggleAllowed();
       this.getPlayers();
       this.getTeams();
     });
   }
 
   ngOnInit() {
-    this.setDeleteAllowed();
+    this.setPlayerToggleAllowed();
     this.getPlayers();
     this.getTeams();
   }
@@ -48,22 +48,31 @@ export class PlayersListComponent implements OnInit {
     this._subscription.unsubscribe();
   }
 
-  setDeleteAllowed(): void {
+  setPlayerToggleAllowed(): void {
     if (!this.gameService.isGameStarted()) {
-      this.deleteAllowed = true;
+      this.playerToggleAllowed = true;
     }
   }
 
   getPlayers(): void {
     this.players = this.playerService.getPlayers();
+
+    if (this.showTeams) {
+      this.sortPlayersList('name');
+    } else {
+      this.sortPlayersList('games');
+    }
   }
 
   getTeams(): void {
     this.teamOne = this.playerService.getTeam(1);
     this.teamTwo = this.playerService.getTeam(2);
 
-    if (this.teamOne.length || this.teamTwo.length) {
+    if (this.teamOne.length && this.teamTwo.length) {
       this.showTeams = true;
+      this.sortPlayersList('name');
+    } else {
+      this.showTeams = false;
     }
   }
 
@@ -84,19 +93,35 @@ export class PlayersListComponent implements OnInit {
     });
   }
 
-  deletePlayer(player: Player): void {
-    Swal.fire({
-      text: 'Remove player ' + player.name + '?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, remove him/her!',
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.value) {
-        this.playerService.deletePlayer(player);
-      }
-    });
+  togglePlayer(player: Player): void {
+    if (this.showTeams) {
+      Swal.fire({
+        text: 'Remove player ' + player.name + '?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, remove him/her!',
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.value) {
+          this.playerService.togglePlayerSelect(player, true);
+        }
+      });
+    } else {
+      this.playerService.togglePlayerSelect(player);
+    }
+  }
+
+  sortPlayersList(type: string): void {
+    if (type === 'games') {
+      this.players.sort(
+        (a, b) => a.games - b.games || a.name.localeCompare(b.name)
+      );
+    } else if (type === 'name') {
+      this.players.sort((a, b) => a.name.localeCompare(b.name));
+      this.teamOne.sort((a, b) => a.name.localeCompare(b.name));
+      this.teamTwo.sort((a, b) => a.name.localeCompare(b.name));
+    }
   }
 }

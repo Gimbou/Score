@@ -1,7 +1,8 @@
 .single-list {
-  display: flex;
+  display: grid;
   justify-items: center;
   height: 100%;
+  overflow: hidden;
 }
 
 .players-grid-container {
@@ -12,15 +13,25 @@
 }
 
 .team-one {
-  display: flex;
+  display: grid;
   grid-area: teamOne;
   justify-self: end;
   height: 100%;
+  overflow: hidden;
 }
 
 .team-two {
-  display: flex;
+  display: grid;
   grid-area: teamTwo;
   justify-self: start;
   height: 100%;
+  overflow: hidden;
+}
+
+.player-selected {
+  opacity: 100%;
+}
+
+.player-unselected {
+  opacity: 30%;
 }

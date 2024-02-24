@@ -12,6 +12,7 @@ export class PlayerService {
   private shuffled: boolean = false;
   private nextGoalId: number = 1;
   private players: Player[] = [];
+  private playerList: Player[] = [];
   playersChange: Subject<Player[]> = new Subject<Player[]>();
 
   constructor() {}
@@ -23,28 +24,46 @@ export class PlayerService {
       players: this.players,
     };
     localStorage.setItem('currentPlayers', JSON.stringify(currentPlayers));
+    localStorage.setItem('playerList', JSON.stringify(this.playerList));
     this.playersChange.next(this.players);
   }
 
   getLocalStorage() {
     const currentPlayers = JSON.parse(
-      localStorage.getItem('currentPlayers') || '{}'
+      localStorage.getItem('currentPlayers') as string
     );
 
-    if (Object.keys(currentPlayers).length !== 0) {
+    if (currentPlayers && Object.keys(currentPlayers).length) {
       this.shuffled = currentPlayers.shuffled;
       this.nextGoalId = currentPlayers.nextGoalId;
       this.players = currentPlayers.players;
+    }
+
+    const playerList = JSON.parse(localStorage.getItem('playerList') as string);
+
+    if (playerList && playerList.length) {
+      this.playerList = playerList;
     }
   }
 
   clearLocalStorage() {
     localStorage.removeItem('currentPlayers');
+    localStorage.removeItem('playerList');
   }
 
   getPlayers() {
     this.getLocalStorage();
+
+    if (this.shuffled && this.players.length < 2) {
+      this.setShuffled(false);
+    }
+
     return this.players || [];
+  }
+
+  getPlayerList() {
+    this.getLocalStorage();
+    return this.playerList || [];
   }
 
   addPlayer(player: Player) {
@@ -55,8 +74,8 @@ export class PlayerService {
       this.players.filter((p) => p.name === player.name).length
     ) {
       Swal.fire({
-        title: "Adding failed",
-        text: "Player with the same name already added!",
+        title: 'Adding failed',
+        text: 'Player with the same name already added!',
         icon: 'warning',
         showCancelButton: false,
         confirmButtonColor: '#3085d6',
@@ -81,24 +100,60 @@ export class PlayerService {
 
     player.goals = 0;
     this.players.push(player);
+    this.playerList = this.playerList.filter((p) => p.name !== player.name);
     this.setLocalStorage();
   }
 
-  deletePlayer(player: Player) {
+  togglePlayerSelect(player: Player, deleteExtras: boolean = false) {
     this.getLocalStorage();
-    this.players = this.players.filter((p) => p.name !== player.name);
+
+    const playerIndex = this.players.findIndex(
+      (playerObj) => playerObj.name === player.name
+    );
+
+    if (player.selected) {
+      this.players[playerIndex].selected = false;
+      this.players[playerIndex].team = 0;
+    } else {
+      this.players[playerIndex].selected = true;
+    }
+
+    if (deleteExtras) {
+      this.deleteExtraPlayers();
+    }
+
     this.setLocalStorage();
+  }
+
+  deleteExtraPlayers() {
+    const unselectedPlayers = this.players.filter((p) => !p.selected);
+
+    this.playerList.push(...unselectedPlayers);
+
+    this.players = this.players.filter((p) => p.selected);
+
+    if (this.shuffled && this.players.length < 2) {
+      this.setShuffled(false);
+    }
   }
 
   getTeam(teamNumber: number) {
     this.getLocalStorage();
-    return this.players
-      ? this.players.filter((p) => p.team === teamNumber)
-      : [];
+    const teamPlayers = this.players
+    ? this.players.filter((p) => p.team === teamNumber)
+    : [];
+
+    if (this.shuffled && !teamPlayers.length) {
+      this.setShuffled(false);
+    }
+
+    return teamPlayers;
   }
 
   shuffleTeams() {
     this.getLocalStorage();
+
+    this.deleteExtraPlayers();
 
     let currentIndex = this.players.length;
     let teamNumber = 1;
@@ -211,5 +266,7 @@ export class PlayerService {
     this.clearLocalStorage();
     this.shuffled = false;
     this.players = [];
+    this.playerList = [];
+    this.playersChange.next(this.players);
   }
 }

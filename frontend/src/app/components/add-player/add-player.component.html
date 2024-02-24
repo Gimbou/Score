@@ -1,5 +1,10 @@
 <div class="add-player">
-  <input id="playerName" maxlength="10" #playerName />
+  <input list="playerList" id="playerName" maxlength="10" #playerName />
+  <datalist id="playerList">
+    @for (player of playerList; track $index) {
+      <option value="{{ player.name }}"></option>
+    }
+  </datalist>
   <button (click)="add(playerName.value); playerName.value = ''">
     Add player
   </button>

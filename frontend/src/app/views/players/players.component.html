@@ -14,10 +14,18 @@
   <div class="action-buttons">
     @if (playerCount) {
     <div>
+      @if (selectedPlayerCount > 1) {
       <button class="game-control-buttons shuffle" (click)="shuffle()"><fa-icon [icon]="faDice"></fa-icon></button>
-      @if (playersShuffled) {
+      }
+      <button class="game-control-buttons reset" (click)="resetPlayers()"><fa-icon [icon]="faTrash"></fa-icon></button>
+      @if (playersShuffled && selectedPlayerCount > 1) {
       <button class="game-control-buttons play" (click)="startGame()"><fa-icon [icon]="faCirclePlay"></fa-icon></button>
       }
+    </div>
+    <span class="players-selected-count">Players: {{ selectedPlayerCount }}</span>
+    } @else if (currentUser) {
+    <div>
+      <button class="game-control-buttons download-players" (click)="downloadPlayers()"><fa-icon [icon]="faPeopleGroup"></fa-icon></button>
     </div>
     }
   </div>
