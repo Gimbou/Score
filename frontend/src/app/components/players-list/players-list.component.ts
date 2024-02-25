@@ -57,11 +57,7 @@ export class PlayersListComponent implements OnInit {
   getPlayers(): void {
     this.players = this.playerService.getPlayers();
 
-    if (this.showTeams) {
-      this.sortPlayersList('name');
-    } else {
-      this.sortPlayersList('games');
-    }
+    this.sortPlayersList();
   }
 
   getTeams(): void {
@@ -70,7 +66,7 @@ export class PlayersListComponent implements OnInit {
 
     if (this.teamOne.length && this.teamTwo.length) {
       this.showTeams = true;
-      this.sortPlayersList('name');
+      this.sortPlayersList();
     } else {
       this.showTeams = false;
     }
@@ -113,15 +109,9 @@ export class PlayersListComponent implements OnInit {
     }
   }
 
-  sortPlayersList(type: string): void {
-    if (type === 'games') {
-      this.players.sort(
-        (a, b) => a.games - b.games || a.name.localeCompare(b.name)
-      );
-    } else if (type === 'name') {
-      this.players.sort((a, b) => a.name.localeCompare(b.name));
-      this.teamOne.sort((a, b) => a.name.localeCompare(b.name));
-      this.teamTwo.sort((a, b) => a.name.localeCompare(b.name));
-    }
+  sortPlayersList(): void {
+    this.players.sort((a, b) => a.name.localeCompare(b.name));
+    this.teamOne.sort((a, b) => a.name.localeCompare(b.name));
+    this.teamTwo.sort((a, b) => a.name.localeCompare(b.name));
   }
 }

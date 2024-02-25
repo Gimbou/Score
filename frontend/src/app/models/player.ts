@@ -5,5 +5,4 @@ export class Player {
   team?: number;
   goals?: number;
   goalsTime?: [{ id: number; time: Date }];
-  games: number = 0;
 }
