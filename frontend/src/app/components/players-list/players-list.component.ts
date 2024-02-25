@@ -110,8 +110,16 @@ export class PlayersListComponent implements OnInit {
   }
 
   sortPlayersList(): void {
-    this.players.sort((a, b) => a.name.localeCompare(b.name));
-    this.teamOne.sort((a, b) => a.name.localeCompare(b.name));
-    this.teamTwo.sort((a, b) => a.name.localeCompare(b.name));
+    if (this.players) {
+      this.players.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (this.teamOne) {
+      this.teamOne.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (this.teamTwo) {
+      this.teamTwo.sort((a, b) => a.name.localeCompare(b.name));
+    }
   }
 }
