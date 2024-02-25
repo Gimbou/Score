@@ -1,5 +1,5 @@
 <div class="add-player">
-  <input list="playerList" id="playerName" maxlength="15" #playerName />
+  <input list="playerList" id="playerName" maxlength="15" placeholder="Player name" (keydown.enter)="add(playerName.value); playerName.value = ''" #playerName />
   <datalist id="playerList">
     @for (player of playerList; track $index) {
       <option value="{{ player.name }}"></option>
