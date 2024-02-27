@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ChartConfiguration, ChartData } from 'chart.js';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import { StatsService } from '../../services/stats.service';
-import { Stat, StatTable, StatPlayer } from '../../models/stat';
+import { Stat, StatTable } from '../../models/stat';
 
 import { StatsNumbersComponent } from '../../../../src/app/components/stats-numbers/stats-numbers.component';
 import { StatsTableComponent } from '../../../../src/app/components/stats-table/stats-table.component';
@@ -20,10 +21,8 @@ import { StatsPlayerChartComponent } from '../../../../src/app/components/stats-
 export class StatsComponent {
   numbersData: Stat[];
   tableData: StatTable[];
-  winPercentageChartData: Stat[];
-  goalsChartData: Stat[];
-  goalsPerGameChartData: Stat[];
-  playerData: StatPlayer[];
+  chartData: ChartData<'bar'>;
+  playerData: ChartConfiguration['data'];
 
   faXmark = faXmark;
 
@@ -34,9 +33,7 @@ export class StatsComponent {
   constructor(private statsService: StatsService) {
     this.numbersData = statsService.getNumbers();
     this.tableData = statsService.getTable();
-    this.winPercentageChartData = statsService.getChart('winPercentage');
-    this.goalsChartData = statsService.getChart('goal');
-    this.goalsPerGameChartData = statsService.getChart('goalsPerGame');
+    this.chartData = statsService.getChart();
     this.playerData = statsService.getPlayerChart('Juha');
   }
 }

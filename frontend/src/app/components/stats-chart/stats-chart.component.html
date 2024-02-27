@@ -1,14 +1,11 @@
-<ngx-charts-bar-vertical
-  [view]="view"
-  [results]="data"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [showXAxisLabel]="showXAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  (select)="onSelect($event)"
+<canvas
+  baseChart
+  class="chart"
+  [data]="data"
+  [options]="barChartOptions"
+  [plugins]="barChartPlugins"
+  [type]="barChartType"
+  (chartHover)="chartHovered($event)"
+  (chartClick)="chartClicked($event)"
 >
-</ngx-charts-bar-vertical>
+</canvas>

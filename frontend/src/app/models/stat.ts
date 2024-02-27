@@ -13,8 +13,3 @@ export class StatTable {
   goals: number = 0;
   gpg: number = 0.0;
 }
-
-export class StatPlayer {
-  name: string = '';
-  series: Stat[] = [];
-}

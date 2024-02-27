@@ -1,47 +1,55 @@
-import { Component, Input } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-
-import { StatPlayer } from '../../models/stat';
+import { Component, ViewChild, Input } from '@angular/core';
+import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-stats-player-chart',
   standalone: true,
-  imports: [NgxChartsModule],
+  imports: [NgChartsModule],
   templateUrl: './stats-player-chart.component.html',
   styleUrl: './stats-player-chart.component.scss'
 })
 export class StatsPlayerChartComponent {
-  @Input() data: StatPlayer[] = [];
-
-  // Chart settings
-  view: [number, number] = [700, 400];
-
-  legend: boolean = true;
-  showLabels: boolean = true;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
-  showXAxisLabel: boolean = false;
-  xAxisLabel: string = '';
-  yAxisLabel: string = 'Goals';
-  timeline: boolean = true;
-
-  colorScheme = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
+  @Input() data!: ChartConfiguration['data'];
 
   constructor() {}
 
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  public lineChartOptions: ChartConfiguration['options'] = {
+    elements: {
+      line: {
+        tension: 0.5,
+      },
+    },
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      y: {
+        position: 'left',
+      },
+    },
+  };
+
+  public lineChartType: ChartType = 'line';
+
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
+  // events
+  public chartClicked({
+    event,
+    active,
+  }: {
+    event?: ChartEvent;
+    active?: object[];
+  }): void {
+    console.log(event, active);
   }
 
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  public chartHovered({
+    event,
+    active,
+  }: {
+    event?: ChartEvent;
+    active?: object[];
+  }): void {
+    console.log(event, active);
   }
 }

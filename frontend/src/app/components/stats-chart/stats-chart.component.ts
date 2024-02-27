@@ -1,55 +1,62 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Component, ViewChild, Input } from '@angular/core';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
-import { Stat } from '../../models/stat';
+import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-stats-chart',
   standalone: true,
-  imports: [NgxChartsModule],
+  imports: [NgChartsModule],
   templateUrl: './stats-chart.component.html',
-  styleUrl: './stats-chart.component.scss'
+  styleUrl: './stats-chart.component.scss',
 })
-export class StatsChartComponent implements OnInit {
-  @Input() data: Stat[] = [];
-  @Input() type: string = '';
+export class StatsChartComponent {
+  @Input() data!: ChartData<'bar'>;
 
-  // Chart settings
-  view: [number, number] = [700, 400];
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  showXAxisLabel = false;
-  xAxisLabel: string = '';
-  showYAxisLabel = true;
-  yAxisLabel = '';
-
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  public barChartOptions: ChartConfiguration['options'] = {
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: {
+      x: {},
+      y: {},
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        clip: true,
+      },
+    },
   };
+  public barChartType: ChartType = 'bar';
+  public barChartPlugins = [DataLabelsPlugin];
 
   constructor() {}
 
-  ngOnInit(): void {
-    switch (this.type) {
-      case 'Win-%':
-        this.yAxisLabel = 'Win-%';
-        return;
-      case 'Goals':
-        this.yAxisLabel = 'Goals';
-        return;
-      case 'Goals Per Game':
-        this.yAxisLabel = 'Goals Per Game';
-        return;
-      default:
-        this.yAxisLabel = '';
-        return;
-    }
+  // events
+  public chartClicked({
+    event,
+    active,
+  }: {
+    event?: ChartEvent;
+    active?: object[];
+  }): void {
+    console.log(event, active);
+    console.log(this.data);
   }
 
-  onSelect(event: any) {
-    console.log(event);
+  public chartHovered({
+    event,
+    active,
+  }: {
+    event?: ChartEvent;
+    active?: object[];
+  }): void {
+    console.log(event, active);
   }
 }
