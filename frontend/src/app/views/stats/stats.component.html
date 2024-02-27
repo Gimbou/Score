@@ -1,1 +1,13 @@
-<button class="back-button" onclick="history.back();"><fa-icon [icon]="faXmark"></fa-icon></button>
+<button class="back-button" onclick="history.back();">
+  <fa-icon [icon]="faXmark"></fa-icon>
+</button>
+<div class="grid-container">
+  <div class="stats-container">
+    <app-stats-numbers [data]="numbersData"></app-stats-numbers>
+    <app-stats-table [data]="tableData"></app-stats-table>
+    <app-stats-chart [data]="winPercentageChartData" [type]="typeWinPercentage"></app-stats-chart>
+    <app-stats-chart [data]="goalsChartData" [type]="typeGoals"></app-stats-chart>
+    <app-stats-chart [data]="goalsPerGameChartData" [type]="typeGPG"></app-stats-chart>
+    <app-stats-player-chart [data]="playerData"></app-stats-player-chart>
+  </div>
+</div>

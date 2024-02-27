@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
+
 import { NavigationService } from './services/navigation.service';
+import { PwaService } from './services/pwa.service';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +17,11 @@ export class AppComponent {
 
   constructor(
     private location: LocationStrategy,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private pwaService: PwaService,
   ) {
+    this.pwaService.checkForUpdates();
+
     // Check if back or forward button is pressed
     this.location.onPopState(() => {
       this.navigationService.setBackClicked(true);
