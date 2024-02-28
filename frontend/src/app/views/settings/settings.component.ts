@@ -7,6 +7,8 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { SettingsService } from '../../services/settings.service';
 import { ApiService } from '../../services/api.service';
 
+import packageJson from '../../../../package.json';
+
 @Component({
   selector: 'app-settings',
   standalone: true,
@@ -19,6 +21,7 @@ export class SettingsComponent {
   currentUser: User | null = null;
   currentUserEmail: string | null | undefined = null;
   faXmark = faXmark;
+  version: string = packageJson.version;
   private _emailSentSubscription: Subscription;
   private _currentUserSubscription: Subscription;
 
