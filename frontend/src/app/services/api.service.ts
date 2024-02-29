@@ -6,6 +6,9 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
+  query,
+  orderBy,
   addDoc,
   setDoc,
   arrayUnion,
@@ -26,6 +29,7 @@ import { GameService } from './game.service';
 import { PlayerService } from './player.service';
 import data from '../../../firebase_config.json';
 import { Player } from '../models/player';
+import { Game } from '../models/game';
 
 @Injectable({
   providedIn: 'root',
@@ -282,12 +286,34 @@ export class ApiService {
           const playerList = playerListDoc.data();
 
           playerList['players'].forEach((name: string) => {
-            this.playerService.addPlayer({ name: name, selected: false } as Player);
+            this.playerService.addPlayer({
+              name: name,
+              selected: false,
+            } as Player);
           });
         }
       } catch (e) {
-        console.error('Error adding document: ', e);
+        console.error('Error getting players list: ', e);
       }
     }
+  }
+
+  async getGames() {
+    if (this.auth.currentUser) {
+      try {
+        const gamesList = await getDocs(query(collection(this.db, 'games'), orderBy('startTime')));
+        let games: Game[] = [];
+
+        gamesList.forEach((game) => {
+          games.push(game.data());
+        });
+
+        return games;
+      } catch (e) {
+        console.error('Error getting games list: ', e);
+      }
+    }
+
+    return [];
   }
 }

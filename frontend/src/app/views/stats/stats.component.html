@@ -3,9 +3,15 @@
 </button>
 <div class="grid-container">
   <div class="stats-container">
-    <app-stats-numbers [data]="numbersData"></app-stats-numbers>
-    <app-stats-table [data]="tableData"></app-stats-table>
-    <app-stats-chart [data]="chartData"></app-stats-chart>
-    <app-stats-player-chart [data]="playerData"></app-stats-player-chart>
+    @if (loadingData) {
+      <app-loading-spinner [loading]="loadingData"></app-loading-spinner>
+    } @else if (showStats) {
+      <app-stats-numbers [data]="numbersData"></app-stats-numbers>
+      <app-stats-table [data]="tableData"></app-stats-table>
+      <app-stats-chart [data]="chartData"></app-stats-chart>
+      <app-stats-player-chart [data]="playerData"></app-stats-player-chart>
+    } @else {
+      <span>Please <a href='./settings'>login</a> to see stats!</span>
+    }
   </div>
 </div>

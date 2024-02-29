@@ -22,8 +22,4 @@ export class StatsNumbersComponent {
   cardColor: string = '#232837';
 
   constructor() {}
-
-  onSelect(event: any) {
-    console.log(event);
-  }
 }

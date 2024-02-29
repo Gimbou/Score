@@ -20,6 +20,30 @@ body {
   overflow: hidden;
 }
 
+a:link {
+  color: orange;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: orange;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: orange;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:active {
+  color: orange;
+  background-color: transparent;
+  text-decoration: none;
+}
+
 button {
   background-color: #eee;
   border: none;

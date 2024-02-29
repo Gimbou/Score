@@ -13,3 +13,10 @@ export class StatTable {
   goals: number = 0;
   gpg: number = 0.0;
 }
+
+export class PlayerGames {
+  name: string = '';
+  results: string[] = [];
+  goals: number[] = [];
+  dates: string[] = [];
+}

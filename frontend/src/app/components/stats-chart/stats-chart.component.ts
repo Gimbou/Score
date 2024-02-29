@@ -18,6 +18,7 @@ export class StatsChartComponent {
 
   public barChartOptions: ChartConfiguration['options'] = {
     // We use these empty structures as placeholders for dynamic theming.
+    responsive: true,
     scales: {
       x: {},
       y: {},
@@ -37,26 +38,4 @@ export class StatsChartComponent {
   public barChartPlugins = [DataLabelsPlugin];
 
   constructor() {}
-
-  // events
-  public chartClicked({
-    event,
-    active,
-  }: {
-    event?: ChartEvent;
-    active?: object[];
-  }): void {
-    console.log(event, active);
-    console.log(this.data);
-  }
-
-  public chartHovered({
-    event,
-    active,
-  }: {
-    event?: ChartEvent;
-    active?: object[];
-  }): void {
-    console.log(event, active);
-  }
 }
