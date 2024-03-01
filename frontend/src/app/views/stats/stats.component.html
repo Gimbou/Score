@@ -3,15 +3,24 @@
 </button>
 <div class="grid-container">
   <div class="stats-container">
-    @if (loadingData) {
-      <app-loading-spinner [loading]="loadingData"></app-loading-spinner>
+    @if (!userLoggedIn) {
+    <span>Please <a href="./settings">login</a> to see stats!</span>
+    } @else if (loadingData) {
+    <app-loading-spinner [loading]="loadingData"></app-loading-spinner>
     } @else if (showStats) {
-      <app-stats-numbers [data]="numbersData"></app-stats-numbers>
-      <app-stats-table [data]="tableData"></app-stats-table>
-      <app-stats-chart [data]="chartData"></app-stats-chart>
-      <app-stats-player-chart [data]="playerData"></app-stats-player-chart>
-    } @else {
-      <span>Please <a href='./settings'>login</a> to see stats!</span>
+    <app-stats-numbers [data]="numbersData"></app-stats-numbers>
+    <app-stats-table
+      [data]="tableData"
+      (onPlayerSelect)="selectPlayer($event)"
+    ></app-stats-table>
+    <span (click)="changeChart(winPercentage)">Win-%</span>
+    <span (click)="changeChart(goals)">Goals</span>
+    <span (click)="changeChart(goalsPerGame)">Goals Per Game</span>
+    <app-stats-chart [data]="chartData"></app-stats-chart>
+    @if (showPlayerStats) {
+    <app-stats-player-chart [data]="playerData"></app-stats-player-chart>
+    } } @else {
+    <span>No stats available!</span>
     }
   </div>
 </div>

@@ -1,1 +1,8 @@
-<ngx-datatable class="dark" [rows]="data" [columns]="columns"></ngx-datatable>
+<ngx-datatable
+  class="dark"
+  [rows]="data"
+  [columns]="columns"
+  [selected]="selected"
+  [selectionType]="SelectionType.single"
+  (select)="onSelect($event)"
+></ngx-datatable>

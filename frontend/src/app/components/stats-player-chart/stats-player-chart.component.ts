@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input } from '@angular/core';
-import { ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
 @Component({
@@ -10,7 +10,7 @@ import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
   styleUrl: './stats-player-chart.component.scss'
 })
 export class StatsPlayerChartComponent {
-  @Input() data!: ChartConfiguration['data'];
+  @Input() data!: ChartData <'line', {name: string, value: number} []>;
 
   constructor() {}
 
@@ -24,6 +24,7 @@ export class StatsPlayerChartComponent {
       // We use this empty structure as a placeholder for dynamic theming.
       y: {
         position: 'left',
+        min: 0,
       },
     },
   };

@@ -21,7 +21,9 @@ export class StatsChartComponent {
     responsive: true,
     scales: {
       x: {},
-      y: {},
+      y: {
+        min: 0,
+      },
     },
     plugins: {
       legend: {
@@ -30,7 +32,7 @@ export class StatsChartComponent {
       datalabels: {
         anchor: 'end',
         align: 'end',
-        clip: true,
+        clip: false,
       },
     },
   };

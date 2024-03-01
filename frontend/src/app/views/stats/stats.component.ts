@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'firebase/auth';
 import { Subscription } from 'rxjs';
-import { ChartConfiguration, ChartData } from 'chart.js';
+import { ChartData } from 'chart.js';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import { StatsService } from '../../services/stats.service';
 import { ApiService } from '../../services/api.service';
-import { Stat, StatTable } from '../../models/stat';
+import { Stat, StatTable, StatChartType } from '../../models/stat';
 
 import { StatsNumbersComponent } from '../../../../src/app/components/stats-numbers/stats-numbers.component';
 import { StatsTableComponent } from '../../../../src/app/components/stats-table/stats-table.component';
@@ -18,53 +18,84 @@ import { LoadingSpinnerComponent } from '../../components/loading-spinner/loadin
 @Component({
   selector: 'app-stats',
   standalone: true,
-  imports: [FontAwesomeModule, StatsNumbersComponent, StatsTableComponent, StatsChartComponent, StatsPlayerChartComponent, LoadingSpinnerComponent],
+  imports: [
+    FontAwesomeModule,
+    StatsNumbersComponent,
+    StatsTableComponent,
+    StatsChartComponent,
+    StatsPlayerChartComponent,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './stats.component.html',
-  styleUrl: './stats.component.scss'
+  styleUrl: './stats.component.scss',
 })
-export class StatsComponent {
+export class StatsComponent implements OnInit {
   numbersData: Stat[] = [];
   tableData: StatTable[] = [];
   chartData: ChartData<'bar'> = { labels: [], datasets: [] };
-  playerData: ChartConfiguration['data'] = { labels: [], datasets: [] };
+  playerData: ChartData<'line', { name: string; value: number }[]> = {
+    datasets: [],
+  };
 
   currentUser: User | null = null;
-  showStats: number = 0;
+  showStats: boolean = false;
   loadingData: boolean = false;
+  showPlayerStats: boolean = false;
+  userLoggedIn: boolean = false;
+
+  winPercentage = StatChartType.WinPercentage;
+  goals = StatChartType.Goals;
+  goalsPerGame = StatChartType.GoalsPerGame;
 
   faXmark = faXmark;
 
-  typeWinPercentage: string = 'Win-%';
-  typeGoals: string = 'Goals';
-  typeGPG: string = 'Goals Per Game';
-
   private _currentUserSubscription: Subscription;
 
-  constructor(private statsService: StatsService, private apiService: ApiService) {
+  constructor(
+    private statsService: StatsService,
+    private apiService: ApiService
+  ) {
     this._currentUserSubscription = this.apiService.currentUser.subscribe(
       (value) => {
         this.currentUser = value;
-        
+
         if (this.currentUser) {
-          this.showStats = 1;
+          this.userLoggedIn = true;
         }
       }
-      );
+    );
   }
-  
+
   async ngOnInit() {
     this.currentUser = this.apiService.getCurrentUser();
-    
+
     if (this.currentUser) {
+      this.userLoggedIn = true;
       this.loadingData = true;
-      this.showStats = 1;
       await this.statsService.generateStats();
 
       this.numbersData = this.statsService.getNumbers();
       this.tableData = this.statsService.getTable();
-      this.chartData = this.statsService.getChart();
-      this.playerData = this.statsService.getPlayerChart('Juha');
+      this.chartData = this.statsService.getChart(StatChartType.WinPercentage);
+
+      if (this.numbersData.length && this.tableData.length) {
+        this.showStats = true;
+      }
+
       this.loadingData = false;
+    }
+  }
+
+  changeChart(type: StatChartType) {
+    this.chartData = this.statsService.getChart(type);
+  }
+
+  selectPlayer(player: string) {
+    this.playerData = this.statsService.getPlayerChart([player]);
+    if (this.playerData.datasets.length) {
+      this.showPlayerStats = true;
+    } else {
+      this.showPlayerStats = false;
     }
   }
 }

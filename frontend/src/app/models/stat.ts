@@ -3,6 +3,11 @@ export class Stat {
   value: number = 0;
 }
 
+export class StatString {
+  name: string = '';
+  value: string = '';
+}
+
 export class StatTable {
   name: string = '';
   games: number = 0;
@@ -14,9 +19,14 @@ export class StatTable {
   gpg: number = 0.0;
 }
 
-export class PlayerGames {
+export class StatPlayerGames {
   name: string = '';
-  results: string[] = [];
-  goals: number[] = [];
-  dates: string[] = [];
+  results: StatString[] = [];
+  goals: Stat[] = [];
+}
+
+export enum StatChartType {
+  WinPercentage = 'Win-%',
+  Goals = 'Goals',
+  GoalsPerGame = 'Goals Per Game'
 }

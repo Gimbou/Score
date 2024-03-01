@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ChartConfiguration, ChartData } from 'chart.js';
+import { ChartData } from 'chart.js';
 
-import { PlayerGames, Stat, StatTable } from '../models/stat';
+import {
+  StatPlayerGames,
+  Stat,
+  StatTable,
+  StatChartType,
+} from '../models/stat';
 import { Game } from '../models/game';
 import { ApiService } from './api.service';
 
@@ -13,7 +18,7 @@ export class StatsService {
   private numbers: Stat[] = [];
   private table: StatTable[] = [];
   private chart: ChartData<'bar'> = { labels: [], datasets: [] };
-  private playersGames: PlayerGames[] = [];
+  private playersGames: StatPlayerGames[] = [];
 
   constructor(private apiService: ApiService) {}
 
@@ -42,6 +47,14 @@ export class StatsService {
       } else {
         draw = true;
       }
+
+      const gameDate = new Date(game.startTime!);
+      const gameDateString =
+        gameDate.getDate().toString() +
+        '.' +
+        gameDate.getMonth().toString() +
+        '.' +
+        gameDate.getFullYear().toString();
 
       if (game.players) {
         game.players.forEach((player) => {
@@ -77,6 +90,8 @@ export class StatsService {
             (currentPlayer.wins / currentPlayer.games) * 100;
           currentPlayer.gpg = currentPlayer.goals / currentPlayer.games;
 
+          // Table
+
           const currentPlayerIndex = this.table.findIndex(
             (findPlayer) => findPlayer.name === player.name
           );
@@ -98,47 +113,36 @@ export class StatsService {
             this.table.push(currentPlayer);
           }
 
+          // Line chart
+
           const currentPlayerGamesIndex = this.playersGames.findIndex(
             (findPlayer) => findPlayer.name === player.name
           );
 
           if (currentPlayerGamesIndex !== -1) {
-            this.playersGames[currentPlayerGamesIndex].results.push(result);
-            this.playersGames[currentPlayerGamesIndex].goals.push(
-              currentPlayer.goals
-            );
-
-            if (game.startTime) {
-              const gameDate = new Date(game.startTime);
-              this.playersGames[currentPlayerGamesIndex].dates.push(
-                gameDate.getDate().toString() +
-                  '.' +
-                  gameDate.getMonth().toString() +
-                  '.' +
-                  gameDate.getFullYear().toString()
-              );
-            }
+            this.playersGames[currentPlayerGamesIndex].results.push({
+              name: gameDateString,
+              value: result,
+            });
+            this.playersGames[currentPlayerGamesIndex].goals.push({
+              name: gameDateString,
+              value: currentPlayer.goals,
+            });
           } else {
-            let currentPlayerGames: PlayerGames = {
+            let currentPlayerGames: StatPlayerGames = {
               name: player.name,
               results: [],
               goals: [],
-              dates: [],
             };
 
-            currentPlayerGames.results.push(result);
-            currentPlayerGames.goals.push(currentPlayer.goals);
-
-            if (game.startTime) {
-              const gameDate = new Date(game.startTime);
-              currentPlayerGames.dates.push(
-                gameDate.getDate().toString() +
-                  '.' +
-                  gameDate.getMonth().toString() +
-                  '.' +
-                  gameDate.getFullYear().toString()
-              );
-            }
+            currentPlayerGames.results.push({
+              name: gameDateString,
+              value: result,
+            });
+            currentPlayerGames.goals.push({
+              name: gameDateString,
+              value: currentPlayer.goals,
+            });
 
             this.playersGames.push(currentPlayerGames);
           }
@@ -161,9 +165,9 @@ export class StatsService {
     this.chart = {
       labels: [],
       datasets: [
-        { data: [], label: 'Win-%' },
-        { data: [], label: 'Goals' },
-        { data: [], label: 'Goals per Game' },
+        { data: [], label: StatChartType.WinPercentage },
+        { data: [], label: StatChartType.Goals },
+        { data: [], label: StatChartType.GoalsPerGame },
       ],
     };
 
@@ -211,7 +215,7 @@ export class StatsService {
     return this.table;
   }
 
-  getChart() {
+  getChart(type: string) {
     /* const data = {
       labels: ['Juha', 'Matti', 'Maija'],
       datasets: [
@@ -221,14 +225,37 @@ export class StatsService {
       ],
     }; */
 
-    return this.chart;
+    let chartData: ChartData<'bar'> = {
+      labels: this.chart.labels,
+      datasets: [],
+    };
+
+    if (type === StatChartType.WinPercentage) {
+      chartData.datasets = this.chart.datasets.filter(
+        (data) => data.label === StatChartType.WinPercentage
+      );
+    } else if (type === StatChartType.Goals) {
+      chartData.datasets = this.chart.datasets.filter(
+        (data) => data.label === StatChartType.Goals
+      );
+    } else if (type === StatChartType.GoalsPerGame) {
+      chartData.datasets = this.chart.datasets.filter(
+        (data) => data.label === StatChartType.GoalsPerGame
+      );
+    }
+
+    return chartData;
   }
 
-  getPlayerChart(player: string) {
-    /* const data = {
+  getPlayerChart(players: string[]) {
+    /* const data: ChartData <'line', {name: string, value: number} []> = {
       datasets: [
         {
-          data: [3, 10, 7, 1],
+          data: [{name:'01.02.2024', value:3}, {name:'08.02.2024', value:10}, {name:'15.02.2024', value:7}, {name:'22.02.2024', value:1}],
+          parsing: {
+            xAxisKey: 'name',
+            yAxisKey: 'value'
+          },
           label: 'Juha',
           backgroundColor: 'rgba(148,159,177,0.2)',
           borderColor: 'rgba(148,159,177,1)',
@@ -238,32 +265,38 @@ export class StatsService {
           pointHoverBorderColor: 'rgba(148,159,177,0.8)',
           fill: 'origin',
         },
-      ],
-      labels: ['01.02.2024', '08.02.2024', '15.02.2024', '22.02.2024'],
+      ]
     }; */
 
-    let playerGames: ChartConfiguration['data'] = { datasets: [], labels: [] };
+    let playerGames: ChartData<'line', { name: string; value: number }[]> = {
+      datasets: [],
+    };
 
-    const playerGamesIndex = this.playersGames.findIndex(
-      (findPlayer) => findPlayer.name === player
-    );
+    players.forEach((player) => {
+      const playerGamesIndex = this.playersGames.findIndex(
+        (findPlayer) => findPlayer.name === player
+      );
 
-    if (playerGamesIndex !== -1) {
-      const playerData = {
-        data: this.playersGames[playerGamesIndex].goals,
-        label: player,
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      };
+      if (playerGamesIndex !== -1) {
+        const playerData = {
+          data: this.playersGames[playerGamesIndex].goals,
+          parsing: {
+            xAxisKey: 'name',
+            yAxisKey: 'value',
+          },
+          label: player,
+          backgroundColor: 'rgba(148,159,177,0.2)',
+          borderColor: 'rgba(148,159,177,1)',
+          pointBackgroundColor: 'rgba(148,159,177,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+          fill: 'origin',
+        };
 
-      playerGames.datasets.push(playerData);
-      playerGames.labels = this.playersGames[playerGamesIndex].dates;
-    }
+        playerGames.datasets.push(playerData);
+      }
+    });
 
     return playerGames;
   }
