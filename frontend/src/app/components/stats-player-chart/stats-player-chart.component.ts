@@ -18,6 +18,15 @@ export class StatsPlayerChartComponent {
     elements: {
       line: {
         tension: 0.5,
+        backgroundColor: 'rgba(255, 102, 0, 0.3)',
+        borderColor: 'rgba(255, 102, 0, 1)',
+        fill: 'origin',
+      },
+      point: {
+        backgroundColor: 'rgba(255, 102, 0, 1)',
+        borderColor: '#fff',
+        hoverBackgroundColor: '#fff',
+        hoverBorderColor: 'rgba(255, 102, 0, 0.8)',
       },
     },
     scales: {

@@ -13,13 +13,31 @@
       [data]="tableData"
       (onPlayerSelect)="selectPlayer($event)"
     ></app-stats-table>
-    <span (click)="changeChart(winPercentage)">Win-%</span>
-    <span (click)="changeChart(goals)">Goals</span>
-    <span (click)="changeChart(goalsPerGame)">Goals Per Game</span>
-    <app-stats-chart [data]="chartData"></app-stats-chart>
     @if (showPlayerStats) {
-    <app-stats-player-chart [data]="playerData"></app-stats-player-chart>
-    } } @else {
+      <app-stats-player-chart [data]="playerData"></app-stats-player-chart>
+    }
+    <div class="chart-link-container">
+      <span
+        class="chart-link"
+        [class.chart-selected]="winPercentageChartSelected"
+        (click)="changeChart(winPercentage)"
+        >Win-%</span
+      >
+      <span
+        class="chart-link"
+        [class.chart-selected]="goalsChartSelected"
+        (click)="changeChart(goals)"
+        >Goals</span
+      >
+      <span
+        class="chart-link"
+        [class.chart-selected]="gpgChartSelected"
+        (click)="changeChart(goalsPerGame)"
+        >Goals Per Game</span
+      >
+    </div>
+    <app-stats-chart [data]="chartData"></app-stats-chart>
+    } @else {
     <span>No stats available!</span>
     }
   </div>

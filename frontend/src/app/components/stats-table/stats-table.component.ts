@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NgxDatatableModule, SelectionType } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule, SelectionType, SortType, ColumnMode } from '@swimlane/ngx-datatable';
 
 import { StatTable } from '../../models/stat';
 
@@ -17,10 +17,10 @@ export class StatsTableComponent {
   columns: Object[] = [];
   selected: StatTable[] = [];
   SelectionType = SelectionType;
+  SortType = SortType;
+  ColumnMode = ColumnMode;
 
-  constructor() {
-    this.columns = [{prop: 'name'}, {name: 'Games'}, {name: 'Wins'}, {name: 'Draws'}, {name: 'Losses'}, {name: 'WinPercentage'}, {name: 'Goals'}, {name: 'GPG'}];
-  }
+  constructor() {}
 
   onSelect(selected: Event) {
     this.onPlayerSelect.emit(this.selected[0].name);

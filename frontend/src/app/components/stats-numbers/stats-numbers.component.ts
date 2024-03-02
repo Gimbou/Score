@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 
 import { Stat } from '../../models/stat';
 
@@ -14,12 +14,15 @@ export class StatsNumbersComponent {
   @Input() data: Stat[] = [];
 
   // Card settings
-  view: [number, number] = [700, 200];
+  view: [number, number] = [700, 150];
 
-  colorScheme = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+  colorScheme: Color = {
+    name: 'orangeScheme',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: ['#ff6600', '#ff6600', '#ff6600', '#ff6600']
   };
-  cardColor: string = '#232837';
+  cardColor: string = '#3a3a3a';
 
   constructor() {}
 }

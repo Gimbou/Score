@@ -21,25 +21,25 @@ body {
 }
 
 a:link {
-  color: orange;
+  color: #ff6600;
   background-color: transparent;
   text-decoration: none;
 }
 
 a:visited {
-  color: orange;
+  color: #ff6600;
   background-color: transparent;
   text-decoration: none;
 }
 
 a:hover {
-  color: orange;
+  color: #ff6600;
   background-color: transparent;
   text-decoration: none;
 }
 
 a:active {
-  color: orange;
+  color: #ff6600;
   background-color: transparent;
   text-decoration: none;
 }
@@ -66,6 +66,13 @@ button:hover {
   font-size: 20vmin;
   font-weight: 600;
   color: #3a3a3a;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
 }
 
 .settings-button, .back-button, .game-control-buttons, .stats-button {
@@ -188,6 +195,7 @@ button:hover {
     cursor: pointer;
     color: #000;
     background-color: #eee;
+    font-weight: 600;
     height: 100%;
     min-height: 40px;
     max-height: 70px;
@@ -234,4 +242,8 @@ button:hover {
   grid-area: actionButtons;
   align-items: center;
   justify-content: center;
+}
+
+.datatable-header-cell-label {
+  color: #ff6600;
 }

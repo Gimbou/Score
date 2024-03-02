@@ -285,13 +285,6 @@ export class StatsService {
             yAxisKey: 'value',
           },
           label: player,
-          backgroundColor: 'rgba(148,159,177,0.2)',
-          borderColor: 'rgba(148,159,177,1)',
-          pointBackgroundColor: 'rgba(148,159,177,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-          fill: 'origin',
         };
 
         playerGames.datasets.push(playerData);

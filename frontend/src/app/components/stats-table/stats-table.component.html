@@ -1,8 +1,20 @@
 <ngx-datatable
-  class="dark"
   [rows]="data"
   [columns]="columns"
+  [columnMode]="ColumnMode.force"
+  [sorts]="[{ prop: 'name', dir: 'asc' }]"
+  [headerHeight]="50"
+  [rowHeight]="50"
   [selected]="selected"
   [selectionType]="SelectionType.single"
   (select)="onSelect($event)"
-></ngx-datatable>
+>
+  <ngx-datatable-column prop="name" name="Name"></ngx-datatable-column>
+  <ngx-datatable-column prop="games" name="Games"></ngx-datatable-column>
+  <ngx-datatable-column prop="wins" name="Wins"></ngx-datatable-column>
+  <ngx-datatable-column prop="draws" name="Draws"></ngx-datatable-column>
+  <ngx-datatable-column prop="losses" name="Losses"></ngx-datatable-column>
+  <ngx-datatable-column prop="winPercentage" name="Win-%"></ngx-datatable-column>
+  <ngx-datatable-column prop="goals" name="Goals"></ngx-datatable-column>
+  <ngx-datatable-column prop="gpg" name="GPG"></ngx-datatable-column>
+</ngx-datatable>

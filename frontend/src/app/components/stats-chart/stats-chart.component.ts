@@ -19,10 +19,19 @@ export class StatsChartComponent {
   public barChartOptions: ChartConfiguration['options'] = {
     // We use these empty structures as placeholders for dynamic theming.
     responsive: true,
+    elements: {
+      bar: {
+        backgroundColor: 'rgba(255, 102, 0, 0.3)',
+        borderColor: 'rgba(255, 102, 0, 1)',
+        borderWidth: 2,
+        borderRadius: 4, 
+      },
+    },
     scales: {
       x: {},
       y: {
         min: 0,
+        beginAtZero: true,
       },
     },
     plugins: {

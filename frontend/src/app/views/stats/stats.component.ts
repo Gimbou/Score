@@ -47,6 +47,10 @@ export class StatsComponent implements OnInit {
   goals = StatChartType.Goals;
   goalsPerGame = StatChartType.GoalsPerGame;
 
+  winPercentageChartSelected = true;
+  goalsChartSelected = false;
+  gpgChartSelected = false;
+
   faXmark = faXmark;
 
   private _currentUserSubscription: Subscription;
@@ -88,6 +92,20 @@ export class StatsComponent implements OnInit {
 
   changeChart(type: StatChartType) {
     this.chartData = this.statsService.getChart(type);
+
+    if (type === StatChartType.WinPercentage) {
+      this.winPercentageChartSelected = true;
+      this.goalsChartSelected = false;
+      this.gpgChartSelected = false;
+    } else if (type === StatChartType.Goals) {
+      this.winPercentageChartSelected = false;
+      this.goalsChartSelected = true;
+      this.gpgChartSelected = false;
+    } else if (type === StatChartType.GoalsPerGame) {
+      this.winPercentageChartSelected = false;
+      this.goalsChartSelected = false;
+      this.gpgChartSelected = true;
+    }
   }
 
   selectPlayer(player: string) {
