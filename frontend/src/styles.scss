@@ -68,14 +68,17 @@ button:hover {
   color: #3a3a3a;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
-   -khtml-user-select: none; /* Konqueror HTML */
-     -moz-user-select: none; /* Old versions of Firefox */
-      -ms-user-select: none; /* Internet Explorer/Edge */
-          user-select: none; /* Non-prefixed version, currently
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome, Edge, Opera and Firefox */
 }
 
-.settings-button, .back-button, .game-control-buttons, .stats-button {
+.settings-button,
+.back-button,
+.game-control-buttons,
+.stats-button {
   background-color: transparent;
   border: 0;
   color: white;
@@ -87,11 +90,15 @@ button:hover {
   font-size: 30px;
 }
 
-.settings-button:hover, .back-button:hover, .game-control-buttons:hover, .stats-button:hover {
+.settings-button:hover,
+.back-button:hover,
+.game-control-buttons:hover,
+.stats-button:hover {
   background: transparent;
 }
 
-.settings-button, .back-button {
+.settings-button,
+.back-button {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -246,4 +253,23 @@ button:hover {
 
 .datatable-header-cell-label {
   color: #ff6600;
+}
+
+ngx-datatable {
+  .datatable-body-row {
+    &.active {
+      background-color: rgba(255, 102, 0, 0.2) !important;
+    }
+  }
+}
+
+.datatable-row-even {
+  background-color: #3a3a3a71;
+}
+
+.datatable-body-cell
+{
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
 }

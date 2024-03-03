@@ -8,7 +8,7 @@ import { Stat } from '../../models/stat';
   standalone: true,
   imports: [NgxChartsModule],
   templateUrl: './stats-numbers.component.html',
-  styleUrl: './stats-numbers.component.scss'
+  styleUrl: './stats-numbers.component.scss',
 })
 export class StatsNumbersComponent {
   @Input() data: Stat[] = [];
@@ -20,9 +20,17 @@ export class StatsNumbersComponent {
     name: 'orangeScheme',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#ff6600', '#ff6600', '#ff6600', '#ff6600']
+    domain: ['#ff6600', '#ff6600', '#ff6600', '#ff6600'],
   };
   cardColor: string = '#3a3a3a';
 
   constructor() {}
+
+  formatValue(data: any) {
+    if (data.label === 'Vestless wins' || data.label === 'Vest wins') {
+      return data.value + '%'; 
+    }
+
+    return data.value;
+  }
 }

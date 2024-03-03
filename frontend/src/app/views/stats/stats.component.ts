@@ -33,7 +33,7 @@ export class StatsComponent implements OnInit {
   numbersData: Stat[] = [];
   tableData: StatTable[] = [];
   chartData: ChartData<'bar'> = { labels: [], datasets: [] };
-  playerData: ChartData<'line', { name: string; value: number }[]> = {
+  playerData: ChartData<'line', { name: string; goals: number, result: string }[]> = {
     datasets: [],
   };
 

@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ChartData } from 'chart.js';
+import { ChartData, Point, ScriptableContext } from 'chart.js';
 
 import {
   StatPlayerGames,
   Stat,
   StatTable,
   StatChartType,
+  StatString,
+  StatPlayerGame,
 } from '../models/stat';
 import { Game } from '../models/game';
 import { ApiService } from './api.service';
+import { AnyObject } from 'chart.js/dist/types/basic';
 
 @Injectable({
   providedIn: 'root',
@@ -120,28 +123,21 @@ export class StatsService {
           );
 
           if (currentPlayerGamesIndex !== -1) {
-            this.playersGames[currentPlayerGamesIndex].results.push({
+            this.playersGames[currentPlayerGamesIndex].games.push({
               name: gameDateString,
-              value: result,
-            });
-            this.playersGames[currentPlayerGamesIndex].goals.push({
-              name: gameDateString,
-              value: currentPlayer.goals,
+              goals: currentPlayer.goals,
+              result: result,
             });
           } else {
             let currentPlayerGames: StatPlayerGames = {
               name: player.name,
-              results: [],
-              goals: [],
+              games: [],
             };
 
-            currentPlayerGames.results.push({
+            currentPlayerGames.games.push({
               name: gameDateString,
-              value: result,
-            });
-            currentPlayerGames.goals.push({
-              name: gameDateString,
-              value: currentPlayer.goals,
+              goals: currentPlayer.goals,
+              result: result,
             });
 
             this.playersGames.push(currentPlayerGames);
@@ -154,11 +150,11 @@ export class StatsService {
 
     this.numbers.push({ name: 'Players', value: this.table.length });
     this.numbers.push({
-      name: 'Win-% vestless',
+      name: 'Vestless wins',
       value: (winsVestless / this.games.length) * 100,
     });
     this.numbers.push({
-      name: 'Win-% vest',
+      name: 'Vest wins',
       value: (winsVest / this.games.length) * 100,
     });
 
@@ -268,7 +264,10 @@ export class StatsService {
       ]
     }; */
 
-    let playerGames: ChartData<'line', { name: string; value: number }[]> = {
+    let playerGames: ChartData<
+      'line',
+      { name: string; goals: number; result: string }[]
+    > = {
       datasets: [],
     };
 
@@ -279,11 +278,34 @@ export class StatsService {
 
       if (playerGamesIndex !== -1) {
         const playerData = {
-          data: this.playersGames[playerGamesIndex].goals,
+          data: this.playersGames[playerGamesIndex].games,
           parsing: {
             xAxisKey: 'name',
-            yAxisKey: 'value',
+            yAxisKey: 'goals',
           },
+          pointBackgroundColor: (context: ScriptableContext<'line'>) => {
+            const index = context.dataIndex;
+            const value = context.dataset.data[index] as unknown;
+            const valueObject = value as StatPlayerGame;
+
+            return valueObject.result === 'win'
+              ? 'green'
+              : valueObject.result === 'loss'
+              ? 'red'
+              : 'yellow';
+          },
+          pointBorderColor: (context: ScriptableContext<'line'>) => {
+            const index = context.dataIndex;
+            const value = context.dataset.data[index] as unknown;
+            const valueObject = value as StatPlayerGame;
+
+            return valueObject.result === 'win'
+              ? 'green'
+              : valueObject.result === 'loss'
+              ? 'red'
+              : 'yellow';
+          },
+          labelColor: 'red',
           label: player,
         };
 

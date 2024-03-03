@@ -19,10 +19,15 @@ export class StatTable {
   gpg: number = 0.0;
 }
 
+export class StatPlayerGame {
+  name: string = '';
+  goals: number = 0;
+  result: string = '';
+}
+
 export class StatPlayerGames {
   name: string = '';
-  results: StatString[] = [];
-  goals: Stat[] = [];
+  games: StatPlayerGame[] = [];
 }
 
 export enum StatChartType {

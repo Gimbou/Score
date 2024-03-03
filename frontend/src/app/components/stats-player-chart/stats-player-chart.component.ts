@@ -10,7 +10,7 @@ import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
   styleUrl: './stats-player-chart.component.scss'
 })
 export class StatsPlayerChartComponent {
-  @Input() data!: ChartData <'line', {name: string, value: number} []>;
+  @Input() data!: ChartData<'line', {name: string, goals: number, result: string} []>;
 
   constructor() {}
 
@@ -23,17 +23,18 @@ export class StatsPlayerChartComponent {
         fill: 'origin',
       },
       point: {
-        backgroundColor: 'rgba(255, 102, 0, 1)',
-        borderColor: '#fff',
         hoverBackgroundColor: '#fff',
         hoverBorderColor: 'rgba(255, 102, 0, 0.8)',
       },
     },
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
       y: {
         position: 'left',
         min: 0,
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,
+        }
       },
     },
   };
