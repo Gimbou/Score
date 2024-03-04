@@ -73,7 +73,20 @@ export class ResultComponent implements OnInit {
   }
 
   uploadGame(): void {
-    this.apiService.addResult();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "The game will be uploaded to cloud!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, upload game!',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.value) {
+        this.apiService.addResult();
+      }
+    });
   }
 
   resetGame(): void {
