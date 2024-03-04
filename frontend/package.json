@@ -27,7 +27,7 @@
     "@swimlane/ngx-datatable": "^20.1.0",
     "chart.js": "^4.3.0",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "firebase": "^10.8.0",
+    "firebase": "^10.8.1",
     "ng2-charts": "^5.0.4",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.10.5",
