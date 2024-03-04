@@ -14,7 +14,13 @@
   <ngx-datatable-column prop="wins" name="Wins"></ngx-datatable-column>
   <ngx-datatable-column prop="draws" name="Draws"></ngx-datatable-column>
   <ngx-datatable-column prop="losses" name="Losses"></ngx-datatable-column>
-  <ngx-datatable-column prop="winPercentage" name="Win-%"></ngx-datatable-column>
+  <!-- <ngx-datatable-column prop="winPercentage" name="Win-%"></ngx-datatable-column> -->
+  <ngx-datatable-column prop="winPercentage" name="Win-%">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
+    </ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.winPercentage }}%</ng-template>
+  </ngx-datatable-column>
   <ngx-datatable-column prop="goals" name="Goals"></ngx-datatable-column>
   <ngx-datatable-column prop="gpg" name="GPG"></ngx-datatable-column>
 </ngx-datatable>
