@@ -38,7 +38,10 @@ export class StatsComponent implements OnInit {
   tableData: StatTable[] = [];
   gameData: StatGame[] = [];
   chartData: ChartData<'bar'> = { labels: [], datasets: [] };
-  playerData: ChartData<'line', { name: string; goals: number, result: string }[]> = {
+  playerData: ChartData<
+    'line',
+    { name: string; goals: number; result: string }[]
+  > = {
     datasets: [],
   };
 
@@ -76,6 +79,14 @@ export class StatsComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.getStats();
+  }
+
+  ngOnDestroy() {
+    this._currentUserSubscription.unsubscribe();
+  }
+
+  async getStats() {
     this.currentUser = this.apiService.getCurrentUser();
 
     if (this.currentUser) {
@@ -94,10 +105,6 @@ export class StatsComponent implements OnInit {
 
       this.loadingData = false;
     }
-  }
-
-  ngOnDestroy() {
-    this._currentUserSubscription.unsubscribe();
   }
 
   changeChart(type: StatChartType) {
