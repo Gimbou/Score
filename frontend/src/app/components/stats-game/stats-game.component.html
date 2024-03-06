@@ -16,7 +16,7 @@
   </ngx-datatable-column>
   <ngx-datatable-column prop="vestlessScore" name="Vestless">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-      <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
+      <span class="datatable-header-cell-wrapper" (click)="sort()"><fa-icon [icon]="faTshirt" class="team-one-icon-small datatable-games-header-icon"></fa-icon></span>
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>
       <span
@@ -28,7 +28,7 @@
   </ngx-datatable-column>
   <ngx-datatable-column prop="vestScore" name="Vest">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-      <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
+      <span class="datatable-header-cell-wrapper" (click)="sort()"><fa-icon [icon]="faTshirt" class="team-two-icon-small datatable-games-header-icon"></fa-icon></span>
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>
       <span

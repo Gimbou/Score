@@ -270,7 +270,7 @@ export class ApiService {
       });
       Toast.fire({
         icon: 'error',
-        title: "Couldn't upload game!",
+        title: "Couldn't upload game! Check connection and permissions.",
       });
     }
   }
@@ -294,6 +294,22 @@ export class ApiService {
         }
       } catch (e) {
         console.error('Error getting players list: ', e);
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: 'error',
+          title: "Couldn't get players!",
+        });
       }
     }
   }
@@ -311,6 +327,22 @@ export class ApiService {
         return games;
       } catch (e) {
         console.error('Error getting games list: ', e);
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: 'error',
+          title: "Couldn't get stats!",
+        });
       }
     }
 

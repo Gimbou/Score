@@ -148,7 +148,7 @@ export class ResultComponent implements OnInit {
           this.gameService.reset();
           this.router.navigateByUrl('/');
         } else if(result.isDenied) {
-          this.apiService.addResult();
+          this.uploadGame();
         }
       });
     }
