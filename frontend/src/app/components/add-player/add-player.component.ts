@@ -25,6 +25,10 @@ export class AddPlayerComponent {
     this.getPlayerList();
   }
 
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
+  }
+
   getPlayerList(): void {
     this.playerList = this.playerService.getPlayerList();
     this.playerList.sort((a, b) => a.name.localeCompare(b.name));

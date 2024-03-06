@@ -96,6 +96,10 @@ export class StatsComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this._currentUserSubscription.unsubscribe();
+  }
+
   changeChart(type: StatChartType) {
     this.chartData = this.statsService.getChart(type);
 

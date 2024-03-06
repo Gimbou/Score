@@ -57,6 +57,11 @@ export class SettingsComponent {
     }
   }
 
+  ngOnDestroy() {
+    this._emailSentSubscription.unsubscribe();
+    this._currentUserSubscription.unsubscribe();
+  }
+
   setTime(time: string): void {
     this.settingsService.setSettings(time);
   }
