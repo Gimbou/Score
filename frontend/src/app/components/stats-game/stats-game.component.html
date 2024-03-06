@@ -2,45 +2,48 @@
   [rows]="data"
   [columns]="columns"
   [columnMode]="ColumnMode.force"
-  [sorts]="[{ prop: 'name', dir: 'asc' }]"
+  [sorts]="[{ prop: 'date', dir: 'asc' }]"
   [headerHeight]="50"
   [rowHeight]="50"
-  [selected]="selected"
-  [selectionType]="SelectionType.single"
-  (select)="onSelect($event)"
 >
-  <ngx-datatable-column prop="name" name="Name"></ngx-datatable-column>
-  <ngx-datatable-column prop="games" name="Games"></ngx-datatable-column>
-  <ngx-datatable-column prop="wins" name="Wins">
+  <ngx-datatable-column prop="date" name="Date">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
       <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <span class="datatable-wins">{{ row.wins }}</span>
+      <span>{{ row.date | date: 'dd.MM.yyyy' }}</span>
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column prop="draws" name="Draws">
+  <ngx-datatable-column prop="vestlessScore" name="Vestless">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
       <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <span class="datatable-draws">{{ row.draws }}</span>
+      <span
+        [class.game-table-win]="row.vestlessScore > row.vestScore"
+        [class.game-table-draw]="row.vestlessScore == row.vestScore"
+        [class.game-table-loss]="row.vestlessScore < row.vestScore"
+      >{{ row.vestlessScore }}</span>
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column prop="losses" name="Losses">
+  <ngx-datatable-column prop="vestScore" name="Vest">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
       <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <span class="datatable-losses">{{ row.losses }}</span>
+      <span
+        [class.game-table-win]="row.vestlessScore < row.vestScore"
+        [class.game-table-draw]="row.vestlessScore == row.vestScore"
+        [class.game-table-loss]="row.vestlessScore > row.vestScore"
+      >{{ row.vestScore }}</span>
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column prop="winPercentage" name="Win-%">
+  <ngx-datatable-column prop="playersCount" name="Players">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
       <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
     </ng-template>
-    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.winPercentage }}%</ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <span class="datatable-wins">{{ row.playersCount }}</span>
+    </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column prop="goals" name="Goals"></ngx-datatable-column>
-  <ngx-datatable-column prop="gpg" name="GPG"></ngx-datatable-column>
 </ngx-datatable>

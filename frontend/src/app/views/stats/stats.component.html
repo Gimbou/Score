@@ -1,4 +1,4 @@
-<button class="back-button" onclick="history.back();">
+<button class="back-button"  routerLink="/">
   <fa-icon [icon]="faXmark"></fa-icon>
 </button>
 <div class="grid-container">
@@ -37,6 +37,7 @@
       >
     </div>
     <app-stats-chart [data]="chartData"></app-stats-chart>
+    <app-stats-game class="game-chart" [data]="gameData"></app-stats-game>
     } @else {
     <span>No stats available!</span>
     }

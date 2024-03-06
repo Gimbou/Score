@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'firebase/auth';
 import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
 import { ChartData } from 'chart.js';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import { StatsService } from '../../services/stats.service';
 import { ApiService } from '../../services/api.service';
-import { Stat, StatTable, StatChartType } from '../../models/stat';
+import { Stat, StatTable, StatGame, StatChartType } from '../../models/stat';
 
 import { StatsNumbersComponent } from '../../../../src/app/components/stats-numbers/stats-numbers.component';
 import { StatsTableComponent } from '../../../../src/app/components/stats-table/stats-table.component';
+import { StatsGameComponent } from '../../components/stats-game/stats-game.component';
 import { StatsChartComponent } from '../../../../src/app/components/stats-chart/stats-chart.component';
 import { StatsPlayerChartComponent } from '../../../../src/app/components/stats-player-chart/stats-player-chart.component';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
@@ -19,9 +21,11 @@ import { LoadingSpinnerComponent } from '../../components/loading-spinner/loadin
   selector: 'app-stats',
   standalone: true,
   imports: [
+    RouterLink,
     FontAwesomeModule,
     StatsNumbersComponent,
     StatsTableComponent,
+    StatsGameComponent,
     StatsChartComponent,
     StatsPlayerChartComponent,
     LoadingSpinnerComponent,
@@ -32,6 +36,7 @@ import { LoadingSpinnerComponent } from '../../components/loading-spinner/loadin
 export class StatsComponent implements OnInit {
   numbersData: Stat[] = [];
   tableData: StatTable[] = [];
+  gameData: StatGame[] = [];
   chartData: ChartData<'bar'> = { labels: [], datasets: [] };
   playerData: ChartData<'line', { name: string; goals: number, result: string }[]> = {
     datasets: [],
@@ -80,6 +85,7 @@ export class StatsComponent implements OnInit {
 
       this.numbersData = this.statsService.getNumbers();
       this.tableData = this.statsService.getTable();
+      this.gameData = this.statsService.getGames();
       this.chartData = this.statsService.getChart(StatChartType.WinPercentage);
 
       if (this.numbersData.length && this.tableData.length) {

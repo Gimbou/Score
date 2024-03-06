@@ -19,6 +19,13 @@ export class StatTable {
   gpg: number = 0.0;
 }
 
+export class StatGame {
+  date: Date = new Date;
+  vestlessScore: number = 0;
+  vestScore: number = 0;
+  playersCount: number = 0;
+}
+
 export class StatPlayerGame {
   name: string = '';
   goals: number = 0;

@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ChartData, Point, ScriptableContext } from 'chart.js';
+import { ChartData, ScriptableContext } from 'chart.js';
 
 import {
   StatPlayerGames,
   Stat,
   StatTable,
+  StatGame,
   StatChartType,
-  StatString,
   StatPlayerGame,
 } from '../models/stat';
 import { Game } from '../models/game';
 import { ApiService } from './api.service';
-import { AnyObject } from 'chart.js/dist/types/basic';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +18,8 @@ import { AnyObject } from 'chart.js/dist/types/basic';
 export class StatsService {
   private games: Game[] = [];
   private numbers: Stat[] = [];
-  private table: StatTable[] = [];
+  private playersTable: StatTable[] = [];
+  private gamesTable: StatGame[] = [];
   private chart: ChartData<'bar'> = { labels: [], datasets: [] };
   private playersGames: StatPlayerGames[] = [];
 
@@ -28,7 +28,8 @@ export class StatsService {
   async generateStats() {
     this.games = [];
     this.numbers = [];
-    this.table = [];
+    this.playersTable = [];
+    this.gamesTable = [];
     this.chart = { labels: [], datasets: [] };
     this.playersGames = [];
 
@@ -58,6 +59,13 @@ export class StatsService {
         gameDate.getMonth().toString() +
         '.' +
         gameDate.getFullYear().toString();
+
+      this.gamesTable.push({
+        date: gameDate,
+        vestlessScore: game.score && game.score[0] !== undefined ? game.score[0] : 0,
+        vestScore: game.score && game.score[1] !== undefined ? game.score[1] : 0,
+        playersCount: game.players ? game.players.length : 0,
+      });
 
       if (game.players) {
         game.players.forEach((player) => {
@@ -89,31 +97,39 @@ export class StatsService {
             currentPlayer.goals = player.goals;
           }
 
-          currentPlayer.winPercentage =
-            (currentPlayer.wins / currentPlayer.games) * 100;
-          currentPlayer.gpg = currentPlayer.goals / currentPlayer.games;
+          currentPlayer.winPercentage = Math.round(
+            (currentPlayer.wins / currentPlayer.games) * 100
+          );
+          currentPlayer.gpg = Number(
+            (currentPlayer.goals / currentPlayer.games).toFixed(1)
+          );
 
           // Table
 
-          const currentPlayerIndex = this.table.findIndex(
+          const currentPlayerIndex = this.playersTable.findIndex(
             (findPlayer) => findPlayer.name === player.name
           );
 
           if (currentPlayerIndex !== -1) {
-            this.table[currentPlayerIndex].games += currentPlayer.games;
-            this.table[currentPlayerIndex].wins += currentPlayer.wins;
-            this.table[currentPlayerIndex].draws += currentPlayer.draws;
-            this.table[currentPlayerIndex].losses += currentPlayer.losses;
-            this.table[currentPlayerIndex].winPercentage =
-              (this.table[currentPlayerIndex].wins /
-                this.table[currentPlayerIndex].games) *
-              100;
-            this.table[currentPlayerIndex].goals += currentPlayer.goals;
-            this.table[currentPlayerIndex].gpg =
-              this.table[currentPlayerIndex].goals /
-              this.table[currentPlayerIndex].games;
+            this.playersTable[currentPlayerIndex].games += currentPlayer.games;
+            this.playersTable[currentPlayerIndex].wins += currentPlayer.wins;
+            this.playersTable[currentPlayerIndex].draws += currentPlayer.draws;
+            this.playersTable[currentPlayerIndex].losses +=
+              currentPlayer.losses;
+            this.playersTable[currentPlayerIndex].winPercentage = Math.round(
+              (this.playersTable[currentPlayerIndex].wins /
+                this.playersTable[currentPlayerIndex].games) *
+                100
+            );
+            this.playersTable[currentPlayerIndex].goals += currentPlayer.goals;
+            this.playersTable[currentPlayerIndex].gpg = Number(
+              (
+                this.playersTable[currentPlayerIndex].goals /
+                this.playersTable[currentPlayerIndex].games
+              ).toFixed(1)
+            );
           } else {
-            this.table.push(currentPlayer);
+            this.playersTable.push(currentPlayer);
           }
 
           // Line chart
@@ -146,16 +162,16 @@ export class StatsService {
       }
     });
 
-    this.table.sort((a, b) => a.name.localeCompare(b.name));
+    this.playersTable.sort((a, b) => a.name.localeCompare(b.name));
 
-    this.numbers.push({ name: 'Players', value: this.table.length });
+    this.numbers.push({ name: 'Players', value: this.playersTable.length });
     this.numbers.push({
       name: 'Vestless wins',
-      value: (winsVestless / this.games.length) * 100,
+      value: Math.round((winsVestless / this.games.length) * 100),
     });
     this.numbers.push({
       name: 'Vest wins',
-      value: (winsVest / this.games.length) * 100,
+      value: Math.round((winsVest / this.games.length) * 100),
     });
 
     this.chart = {
@@ -167,7 +183,7 @@ export class StatsService {
       ],
     };
 
-    this.table.forEach((player) => {
+    this.playersTable.forEach((player) => {
       this.chart.labels?.push(player.name);
       this.chart.datasets[0].data.push(player.winPercentage);
       this.chart.datasets[1].data.push(player.goals);
@@ -208,7 +224,20 @@ export class StatsService {
         gpg: 3.5,
       },
     ]; */
-    return this.table;
+    return this.playersTable;
+  }
+
+  getGames() {
+    /* const data = [
+      {
+        date: new Date,
+        vestlessScore: 1,
+        vestScore: 1,
+        playersCount: 5,
+      }
+    ]; */
+
+    return this.gamesTable;
   }
 
   getChart(type: string) {

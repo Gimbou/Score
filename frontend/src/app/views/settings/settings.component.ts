@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { User } from 'firebase/auth';
 import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,7 +13,7 @@ import packageJson from '../../../../package.json';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [RouterLink, FontAwesomeModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
