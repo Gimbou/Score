@@ -14,7 +14,9 @@
       (onPlayerSelect)="selectPlayer($event)"
     ></app-stats-table>
     @if (showPlayerStats) {
-      <app-stats-player-chart [data]="playerData"></app-stats-player-chart>
+      <app-stats-player-chart class="player-chart" [data]="playerData"></app-stats-player-chart>
+    } @else {
+      <span class="player-chart-placeholder">Select player from the list to see chart</span>
     }
     <div class="chart-link-container">
       <span

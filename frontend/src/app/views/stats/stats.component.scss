@@ -5,12 +5,17 @@
   overflow-y: auto;
 }
 
+.player-chart-placeholder {
+  font-size: 20px;
+  margin-top: 40px;
+}
+
 .chart-link-container {
   margin-top: 40px;
   margin-bottom: 30px;
 }
 
-.game-chart {
+.game-chart, .player-chart {
   margin-top: 40px;
 }
 

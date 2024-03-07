@@ -36,12 +36,11 @@ export class StatsChartComponent {
     },
     plugins: {
       legend: {
-        display: true,
+        display: false,
       },
       datalabels: {
         anchor: 'end',
         align: 'end',
-        clip: false,
       },
     },
   };
