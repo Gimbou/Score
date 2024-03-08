@@ -3,13 +3,13 @@
 }
 
 .game-table-win {
-  color: green;
+  color: rgb(0, 128, 0);
 }
 
 .game-table-draw {
-  color: yellow;
+  color: rgba(255, 255, 0, 0.7);;
 }
 
 .game-table-loss {
-  color: red;
+  color: rgba(255, 0, 0, 0.8);
 }
