@@ -179,7 +179,7 @@ button:hover {
 }
 
 .team-one-icon {
-  color: #000;
+  color: #d3d3d3;
   font-size: 8vmin;
   margin-right: 40px;
 }
@@ -245,7 +245,12 @@ button:hover {
 }
 
 .team-one-icon-small {
-  color: #000;
+  color: #d3d3d3;
+}
+
+.fa-shirt path {
+  stroke: black;
+  stroke-width: 15px;
 }
 
 .team-two-icon-small {
