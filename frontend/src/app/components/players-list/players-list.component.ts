@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
+import {
+  CdkDragDrop,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
 import Swal from 'sweetalert2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTshirt } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +16,7 @@ import { GameService } from '../../services/game.service';
 @Component({
   selector: 'app-players-list',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [CdkDropList, CdkDrag, FontAwesomeModule],
   templateUrl: './players-list.component.html',
   styleUrl: './players-list.component.scss',
 })
@@ -22,6 +27,8 @@ export class PlayersListComponent implements OnInit {
   players!: Player[];
   teamOne!: Player[];
   teamTwo!: Player[];
+  teamOnePlayerCount: number = 0;
+  teamTwoPlayerCount: number = 0;
   showTeams: boolean = false;
   playerToggleAllowed: boolean = false;
   _subscription: Subscription;
@@ -62,7 +69,9 @@ export class PlayersListComponent implements OnInit {
 
   getTeams(): void {
     this.teamOne = this.playerService.getTeam(1);
+    this.teamOnePlayerCount = this.teamOne.length;
     this.teamTwo = this.playerService.getTeam(2);
+    this.teamTwoPlayerCount = this.teamTwo.length;
 
     if (this.teamOne.length && this.teamTwo.length) {
       this.showTeams = true;
@@ -120,6 +129,12 @@ export class PlayersListComponent implements OnInit {
 
     if (this.teamTwo) {
       this.teamTwo.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer !== event.container) {
+      this.playerService.changePlayerTeam(event.item.data);
     }
   }
 }

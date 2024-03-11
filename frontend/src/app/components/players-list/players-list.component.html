@@ -1,39 +1,59 @@
 @if (showTeams) {
 <div class="players-grid-container">
   <div class="team-one">
-    <ul class="players">
-      @for (player of teamOne; track $index) {
-        @if (player.selected) {
-        <li
-          (click)="addGoalAllowed && addGoal(player)"
-          (click)="playerToggleAllowed && togglePlayer(player)"
-        >
-          <span class="badge"><fa-icon [icon]="faTshirt" class="team-one-icon-small"></fa-icon></span>
-          <span class="player">{{ player.name }}</span>
-          @if (showScore) {
-          <span>{{ player.goals }}</span>
-          }
-        </li>
+    <ul
+      cdkDropList
+      [cdkDropListDisabled]="teamOnePlayerCount < 2"
+      #teamOneList="cdkDropList"
+      [cdkDropListConnectedTo]="[teamTwoList]"
+      class="players"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (player of teamOne; track $index) { @if (player.selected) {
+      <li
+        cdkDrag
+        [cdkDragData]="player.name"
+        [cdkDragStartDelay]="1000"
+        (click)="addGoalAllowed && addGoal(player)"
+        (click)="playerToggleAllowed && togglePlayer(player)"
+      >
+        <span class="badge"
+          ><fa-icon [icon]="faTshirt" class="team-one-icon-small"></fa-icon
+        ></span>
+        <span class="player">{{ player.name }}</span>
+        @if (showScore) {
+        <span>{{ player.goals }}</span>
         }
-      }
+      </li>
+      } }
     </ul>
   </div>
   <div class="team-two">
-    <ul class="players">
-      @for (player of teamTwo; track $index) {
-        @if (player.selected) {
-          <li
-            (click)="addGoalAllowed && addGoal(player)"
-            (click)="playerToggleAllowed && togglePlayer(player)"
-          >
-            <span class="badge"><fa-icon [icon]="faTshirt" class="team-two-icon-small"></fa-icon></span>
-            <span class="player">{{ player.name }}</span>
-            @if (showScore) {
-            <span>{{ player.goals }}</span>
-            }
-          </li>
+    <ul
+      cdkDropList
+      [cdkDropListDisabled]="teamTwoPlayerCount < 2"
+      #teamTwoList="cdkDropList"
+      [cdkDropListConnectedTo]="[teamOneList]"
+      class="players"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (player of teamTwo; track $index) { @if (player.selected) {
+      <li
+        cdkDrag
+        [cdkDragData]="player.name"
+        [cdkDragStartDelay]="1000"
+        (click)="addGoalAllowed && addGoal(player)"
+        (click)="playerToggleAllowed && togglePlayer(player)"
+      >
+        <span class="badge"
+          ><fa-icon [icon]="faTshirt" class="team-two-icon-small"></fa-icon
+        ></span>
+        <span class="player">{{ player.name }}</span>
+        @if (showScore) {
+        <span>{{ player.goals }}</span>
         }
-      }
+      </li>
+      } }
     </ul>
   </div>
 </div>
@@ -41,10 +61,11 @@
 <div class="single-list">
   <ul class="players">
     @for (player of players; track $index) {
-    <li 
+    <li
       [class.player-selected]="player.selected"
       [class.player-unselected]="!player.selected"
-      (click)="togglePlayer(player)">
+      (click)="togglePlayer(player)"
+    >
       {{ player.name }}
     </li>
     }

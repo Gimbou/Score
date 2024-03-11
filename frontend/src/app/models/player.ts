@@ -4,5 +4,5 @@ export class Player {
   selected: boolean = true;
   team?: number;
   goals?: number;
-  goalsTime?: [{ id: number; time: Date }];
+  goalsTime?: [{ id: number; time: Date; team: number }];
 }

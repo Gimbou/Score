@@ -125,6 +125,24 @@ export class PlayerService {
     this.setLocalStorage();
   }
 
+  changePlayerTeam(player: string) {
+    this.getLocalStorage();
+
+    const playerIndex = this.players.findIndex(
+      (playerObj) => playerObj.name === player
+    );
+
+    if (playerIndex !== -1) {
+      if (this.players[playerIndex].team === 1) {
+        this.players[playerIndex].team = 2;
+      } else if (this.players[playerIndex].team === 2) {
+        this.players[playerIndex].team = 1;
+      }
+    }
+
+    this.setLocalStorage();
+  }
+
   deleteExtraPlayers() {
     const unselectedPlayers = this.players.filter((p) => !p.selected);
 
@@ -200,9 +218,9 @@ export class PlayerService {
     }
 
     if (!updatedPlayer.goalsTime) {
-      updatedPlayer.goalsTime = [{ id: this.nextGoalId, time: new Date() }];
+      updatedPlayer.goalsTime = [{ id: this.nextGoalId, time: new Date(), team: updatedPlayer.team ? updatedPlayer.team : 0 }];
     } else {
-      updatedPlayer.goalsTime.push({ id: this.nextGoalId, time: new Date() });
+      updatedPlayer.goalsTime.push({ id: this.nextGoalId, time: new Date(), team: updatedPlayer.team ? updatedPlayer.team : 0 });
     }
 
     this.nextGoalId += 1;
@@ -244,7 +262,7 @@ export class PlayerService {
               id: g.id,
               time: g.time,
               name: p.name,
-              team: p.team,
+              team: g.team,
             };
             if (!goals) {
               goals = [appendedGoalsTime];

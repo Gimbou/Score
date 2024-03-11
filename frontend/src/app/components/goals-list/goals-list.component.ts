@@ -32,7 +32,7 @@ export class GoalsListComponent implements OnInit {
 
   deleteGoal(goal: Goal): void {
     Swal.fire({
-      text: 'Remove goal at from ' + goal.name + '?',
+      text: 'Remove goal from ' + goal.name + '?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

@@ -1,0 +1,11 @@
+.grid-container-goals {
+  display: flex;
+  grid-gap: 1em;
+  padding: 1em;
+  height: 100svh;
+  width: 100vw;
+  margin: 0;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+}
