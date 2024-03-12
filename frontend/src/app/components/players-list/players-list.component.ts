@@ -1,10 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {
-  CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import Swal from 'sweetalert2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTshirt } from '@fortawesome/free-solid-svg-icons';
@@ -34,6 +30,11 @@ export class PlayersListComponent implements OnInit {
   _subscription: Subscription;
   faTshirt = faTshirt;
 
+  canDrag: boolean = false;
+  dragPlayer: string = '';
+  readonly dragStartDelay: number = 1000;
+  private dragTimeout = -1;
+
   constructor(
     private playerService: PlayerService,
     private gameService: GameService
@@ -53,6 +54,7 @@ export class PlayersListComponent implements OnInit {
 
   ngOnDestroy() {
     this._subscription.unsubscribe();
+    this.stopTimeout();
   }
 
   setPlayerToggleAllowed(): void {
@@ -136,5 +138,21 @@ export class PlayersListComponent implements OnInit {
     if (event.previousContainer !== event.container) {
       this.playerService.changePlayerTeam(event.item.data);
     }
+  }
+
+  startTimeout(player: Player) {
+    // Make sure only ever one timeout is active
+    this.stopTimeout();
+
+    this.dragTimeout = window.setTimeout(
+      () => (this.dragPlayer = player.name, this.canDrag = true),
+      this.dragStartDelay
+    );
+  }
+
+  stopTimeout() {
+    window.clearTimeout(this.dragTimeout);
+    this.canDrag = false;
+    this.dragPlayer = '';
   }
 }

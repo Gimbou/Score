@@ -13,9 +13,14 @@
       <li
         cdkDrag
         [cdkDragData]="player.name"
-        [cdkDragStartDelay]="1000"
+        [cdkDragStartDelay]="dragStartDelay"
+        [class.can-drag-start]="canDrag && player.name == dragPlayer && teamOnePlayerCount > 1"
         (click)="addGoalAllowed && addGoal(player)"
         (click)="playerToggleAllowed && togglePlayer(player)"
+        (mousedown)="startTimeout(player)"
+        (window:mouseup)="stopTimeout()"
+        (touchstart)="startTimeout(player)"
+        (touchend)="stopTimeout()"
       >
         <span class="badge"
           ><fa-icon [icon]="faTshirt" class="team-one-icon-small"></fa-icon
@@ -41,9 +46,14 @@
       <li
         cdkDrag
         [cdkDragData]="player.name"
-        [cdkDragStartDelay]="1000"
+        [cdkDragStartDelay]="dragStartDelay"
+        [class.can-drag-start]="canDrag && player.name == dragPlayer && teamTwoPlayerCount > 1"
         (click)="addGoalAllowed && addGoal(player)"
         (click)="playerToggleAllowed && togglePlayer(player)"
+        (mousedown)="startTimeout(player)"
+        (window:mouseup)="stopTimeout()"
+        (touchstart)="startTimeout(player)"
+        (touchend)="stopTimeout()"
       >
         <span class="badge"
           ><fa-icon [icon]="faTshirt" class="team-two-icon-small"></fa-icon
