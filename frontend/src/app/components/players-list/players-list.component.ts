@@ -29,7 +29,6 @@ export class PlayersListComponent implements OnInit {
   playerToggleAllowed: boolean = false;
   _playerChangeSubscription: Subscription;
   _mouseUpSubscription: Subscription;
-  _mouseMoveSubscription: Subscription;
   _touchMoveSubscription: Subscription;
 
   faTshirt = faTshirt;
@@ -55,11 +54,6 @@ export class PlayersListComponent implements OnInit {
         this.stopTimeout();
       }
     );
-    this._mouseMoveSubscription = fromEvent(document, 'mousemove').subscribe(
-      (e) => {
-        this.stopTimeout();
-      }
-    );
     this._touchMoveSubscription = fromEvent(document, 'touchmove').subscribe(
       (e) => {
         this.stopTimeout();
@@ -76,7 +70,6 @@ export class PlayersListComponent implements OnInit {
   ngOnDestroy() {
     this._playerChangeSubscription.unsubscribe();
     this._mouseUpSubscription.unsubscribe();
-    this._mouseMoveSubscription.unsubscribe();
     this._touchMoveSubscription.unsubscribe();
     this.stopTimeout();
   }
@@ -168,10 +161,12 @@ export class PlayersListComponent implements OnInit {
     // Make sure only ever one timeout is active
     this.stopTimeout();
 
-    this.dragTimeout = window.setTimeout(
-      () => ((this.dragPlayer = player.name), (this.canDrag = true)),
-      this.dragStartDelay
-    );
+    const timeoutFunction = () => {
+      this.dragPlayer = player.name;
+      this.canDrag = true;
+    };
+
+    this.dragTimeout = window.setTimeout(timeoutFunction, this.dragStartDelay);
   }
 
   stopTimeout() {
