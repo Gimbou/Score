@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { CdkDragDrop, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import Swal from 'sweetalert2';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -27,7 +27,11 @@ export class PlayersListComponent implements OnInit {
   teamTwoPlayerCount: number = 0;
   showTeams: boolean = false;
   playerToggleAllowed: boolean = false;
-  _subscription: Subscription;
+  _playerChangeSubscription: Subscription;
+  _mouseUpSubscription: Subscription;
+  _mouseMoveSubscription: Subscription;
+  _touchMoveSubscription: Subscription;
+
   faTshirt = faTshirt;
 
   canDrag: boolean = false;
@@ -39,11 +43,28 @@ export class PlayersListComponent implements OnInit {
     private playerService: PlayerService,
     private gameService: GameService
   ) {
-    this._subscription = this.playerService.playersChange.subscribe((value) => {
-      this.setPlayerToggleAllowed();
-      this.getPlayers();
-      this.getTeams();
-    });
+    this._playerChangeSubscription = this.playerService.playersChange.subscribe(
+      (value) => {
+        this.setPlayerToggleAllowed();
+        this.getPlayers();
+        this.getTeams();
+      }
+    );
+    this._mouseUpSubscription = fromEvent(document, 'mouseup').subscribe(
+      (e) => {
+        this.stopTimeout();
+      }
+    );
+    this._mouseMoveSubscription = fromEvent(document, 'mousemove').subscribe(
+      (e) => {
+        this.stopTimeout();
+      }
+    );
+    this._touchMoveSubscription = fromEvent(document, 'touchmove').subscribe(
+      (e) => {
+        this.stopTimeout();
+      }
+    );
   }
 
   ngOnInit() {
@@ -53,7 +74,10 @@ export class PlayersListComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    this._playerChangeSubscription.unsubscribe();
+    this._mouseUpSubscription.unsubscribe();
+    this._mouseMoveSubscription.unsubscribe();
+    this._touchMoveSubscription.unsubscribe();
     this.stopTimeout();
   }
 
@@ -145,7 +169,7 @@ export class PlayersListComponent implements OnInit {
     this.stopTimeout();
 
     this.dragTimeout = window.setTimeout(
-      () => (this.dragPlayer = player.name, this.canDrag = true),
+      () => ((this.dragPlayer = player.name), (this.canDrag = true)),
       this.dragStartDelay
     );
   }

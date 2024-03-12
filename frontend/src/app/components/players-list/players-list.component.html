@@ -18,7 +18,6 @@
         (click)="addGoalAllowed && addGoal(player)"
         (click)="playerToggleAllowed && togglePlayer(player)"
         (mousedown)="startTimeout(player)"
-        (window:mouseup)="stopTimeout()"
         (touchstart)="startTimeout(player)"
         (touchend)="stopTimeout()"
       >
@@ -51,7 +50,6 @@
         (click)="addGoalAllowed && addGoal(player)"
         (click)="playerToggleAllowed && togglePlayer(player)"
         (mousedown)="startTimeout(player)"
-        (window:mouseup)="stopTimeout()"
         (touchstart)="startTimeout(player)"
         (touchend)="stopTimeout()"
       >
