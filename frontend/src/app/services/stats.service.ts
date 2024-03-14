@@ -56,7 +56,7 @@ export class StatsService {
       const gameDateString =
         gameDate.getDate().toString() +
         '.' +
-        gameDate.getMonth().toString() +
+        (gameDate.getMonth()+1).toString() +
         '.' +
         gameDate.getFullYear().toString();
 
