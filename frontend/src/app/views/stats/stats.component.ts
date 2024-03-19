@@ -59,6 +59,8 @@ export class StatsComponent implements OnInit {
   goalsChartSelected = false;
   gpgChartSelected = false;
 
+  selectedChartType: StatChartType = StatChartType.WinPercentage;
+
   faXmark = faXmark;
 
   private _currentUserSubscription: Subscription;
@@ -114,14 +116,17 @@ export class StatsComponent implements OnInit {
       this.winPercentageChartSelected = true;
       this.goalsChartSelected = false;
       this.gpgChartSelected = false;
+      this.selectedChartType = StatChartType.WinPercentage;
     } else if (type === StatChartType.Goals) {
       this.winPercentageChartSelected = false;
       this.goalsChartSelected = true;
       this.gpgChartSelected = false;
+      this.selectedChartType = StatChartType.Goals;
     } else if (type === StatChartType.GoalsPerGame) {
       this.winPercentageChartSelected = false;
       this.goalsChartSelected = false;
       this.gpgChartSelected = true;
+      this.selectedChartType = StatChartType.GoalsPerGame;
     }
   }
 

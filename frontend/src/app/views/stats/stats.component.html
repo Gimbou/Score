@@ -38,7 +38,7 @@
         >Goals Per Game</span
       >
     </div>
-    <app-stats-chart [data]="chartData"></app-stats-chart>
+    <app-stats-chart [data]="chartData" [chartType]="selectedChartType"></app-stats-chart>
     <app-stats-game class="game-chart" [data]="gameData"></app-stats-game>
     } @else {
     <span>No stats available!</span>
