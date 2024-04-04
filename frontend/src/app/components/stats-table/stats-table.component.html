@@ -9,7 +9,7 @@
   [selectionType]="SelectionType.single"
   (select)="onSelect($event)"
 >
-  <ngx-datatable-column prop="name" name="Name"></ngx-datatable-column>
+  <ngx-datatable-column prop="name" name="Name" [width]="200"></ngx-datatable-column>
   <ngx-datatable-column prop="games" name="Games"></ngx-datatable-column>
   <ngx-datatable-column prop="wins" name="Wins">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
