@@ -11,6 +11,7 @@ import {
 } from '../models/stat';
 import { Game } from '../models/game';
 import { ApiService } from './api.service';
+import { Player } from '../models/player';
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +66,7 @@ export class StatsService {
         vestlessScore: game.score && game.score[0] !== undefined ? game.score[0] : 0,
         vestScore: game.score && game.score[1] !== undefined ? game.score[1] : 0,
         playersCount: game.players ? game.players.length : 0,
+        players: game.players ? game.players : [],
       });
 
       if (game.players) {
@@ -238,6 +240,22 @@ export class StatsService {
     ]; */
 
     return this.gamesTable;
+  }
+
+  getGame(games: Date[]) {
+    let gameData: Player[] = [];
+
+    games.forEach((game) => {
+      const gameIndex = this.gamesTable.findIndex(
+        (findGame) => findGame.date === game
+      );
+
+      if (gameIndex !== -1) {
+        gameData = this.gamesTable[gameIndex].players;
+      }
+    });
+
+    return gameData;
   }
 
   getChart(type: string) {

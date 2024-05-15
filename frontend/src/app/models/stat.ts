@@ -1,3 +1,5 @@
+import { Player } from "./player";
+
 export class Stat {
   name: string = '';
   value: number = 0;
@@ -24,6 +26,7 @@ export class StatGame {
   vestlessScore: number = 0;
   vestScore: number = 0;
   playersCount: number = 0;
+  players: Player[] = [];
 }
 
 export class StatPlayerGame {

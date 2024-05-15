@@ -39,7 +39,15 @@
       >
     </div>
     <app-stats-chart [data]="chartData" [chartType]="selectedChartType"></app-stats-chart>
-    <app-stats-game class="game-chart" [data]="gameData"></app-stats-game>
+    <app-stats-game class="game-chart"
+      [data]="gameData" 
+      (onGameSelect)="selectGame($event)"
+    ></app-stats-game>
+    @if (showGameStats) {
+      <app-stats-single-game class="game-chart" [data]="singleGameData"></app-stats-single-game>
+    } @else {
+      <span class="player-chart-placeholder">Select game from the list to see details</span>
+    }
     } @else {
     <span>No stats available!</span>
     }

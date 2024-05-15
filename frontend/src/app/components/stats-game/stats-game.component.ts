@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { NgxDatatableModule, ColumnMode } from '@swimlane/ngx-datatable';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NgxDatatableModule, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTshirt } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,11 +15,18 @@ import { StatGame } from '../../models/stat';
 })
 export class StatsGameComponent {
   @Input() data: StatGame[] = [];
+  @Output() onGameSelect = new EventEmitter<Date>();
 
   faTshirt = faTshirt;
 
   columns: Object[] = [];
   ColumnMode = ColumnMode;
+  selected: StatGame[] = [];
+  SelectionType = SelectionType;
 
   constructor() {}
+
+  onSelect(selected: Event) {
+    this.onGameSelect.emit(this.selected[0].date);
+  }
 }

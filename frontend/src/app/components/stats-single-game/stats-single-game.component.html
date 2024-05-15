@@ -1,0 +1,39 @@
+<ngx-datatable
+  [rows]="data"
+  [columns]="columns"
+  [columnMode]="ColumnMode.force"
+  [sorts]="[{ prop: 'team', dir: 'asc' }, { prop: 'name', dir: 'asc' }]"
+  [headerHeight]="50"
+  [rowHeight]="50"
+>
+  <ngx-datatable-column prop="team" name="Team">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
+    </ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <span>
+        @if (row.team == 1) {
+          <fa-icon [icon]="faTshirt" class="team-one-icon-small datatable-games-header-icon"></fa-icon>
+        } @else {
+          <fa-icon [icon]="faTshirt" class="team-two-icon-small datatable-games-header-icon"></fa-icon>
+        }
+      </span>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column prop="name" name="Name">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
+    </ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <span>{{ row.name }}</span>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column prop="goals" name="Goals">
+    <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+      <span class="datatable-header-cell-wrapper" (click)="sort()">{{ column.name }}</span>
+    </ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <span>{{ row.goals }}</span>
+    </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>

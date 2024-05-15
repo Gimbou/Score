@@ -5,6 +5,9 @@
   [sorts]="[{ prop: 'date', dir: 'asc' }]"
   [headerHeight]="50"
   [rowHeight]="50"
+  [selected]="selected"
+  [selectionType]="SelectionType.single"
+  (select)="onSelect($event)"
 >
   <ngx-datatable-column prop="date" name="Date">
     <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>

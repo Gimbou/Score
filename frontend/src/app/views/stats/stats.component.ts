@@ -9,6 +9,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { StatsService } from '../../services/stats.service';
 import { ApiService } from '../../services/api.service';
 import { Stat, StatTable, StatGame, StatChartType } from '../../models/stat';
+import { Player } from '../../models/player';
 
 import { StatsNumbersComponent } from '../../../../src/app/components/stats-numbers/stats-numbers.component';
 import { StatsTableComponent } from '../../../../src/app/components/stats-table/stats-table.component';
@@ -16,6 +17,7 @@ import { StatsGameComponent } from '../../components/stats-game/stats-game.compo
 import { StatsChartComponent } from '../../../../src/app/components/stats-chart/stats-chart.component';
 import { StatsPlayerChartComponent } from '../../../../src/app/components/stats-player-chart/stats-player-chart.component';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
+import { StatsSingleGameComponent } from '../../components/stats-single-game/stats-single-game.component';
 
 @Component({
   selector: 'app-stats',
@@ -26,6 +28,7 @@ import { LoadingSpinnerComponent } from '../../components/loading-spinner/loadin
     StatsNumbersComponent,
     StatsTableComponent,
     StatsGameComponent,
+    StatsSingleGameComponent,
     StatsChartComponent,
     StatsPlayerChartComponent,
     LoadingSpinnerComponent,
@@ -44,11 +47,13 @@ export class StatsComponent implements OnInit {
   > = {
     datasets: [],
   };
+  singleGameData: Player[] = [];
 
   currentUser: User | null = null;
   showStats: boolean = false;
   loadingData: boolean = false;
   showPlayerStats: boolean = false;
+  showGameStats: boolean = false;
   userLoggedIn: boolean = false;
 
   winPercentage = StatChartType.WinPercentage;
@@ -136,6 +141,15 @@ export class StatsComponent implements OnInit {
       this.showPlayerStats = true;
     } else {
       this.showPlayerStats = false;
+    }
+  }
+
+  selectGame(game: Date) {
+    this.singleGameData = this.statsService.getGame([game]);
+    if (this.singleGameData.length) {
+      this.showGameStats = true;
+    } else {
+      this.showGameStats = false;
     }
   }
 }
