@@ -43,6 +43,9 @@ export class StatsService {
     let draw = false;
 
     this.games.forEach((game) => {
+      draw = false;
+      winnerTeam = 0;
+      
       if (game.score && game.score[0] > game.score[1]) {
         winsVestless += 1;
         winnerTeam = 1;
