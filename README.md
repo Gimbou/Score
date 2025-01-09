@@ -2,6 +2,8 @@
 
 ## Development process
 
+Note that these needs to be executed under `frontend` folder!
+
 `ng serve` to run program locally
 
 `ng build` to build program WITHOUT updating version number
