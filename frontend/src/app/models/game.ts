@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore/lite';
 import { Player } from './player';
 
 export class Game {
@@ -7,4 +8,10 @@ export class Game {
   endTime?: Date;
   uploaded?: boolean;
   uploadedBy?: string;
+}
+
+export class Season {
+  startDate?: Timestamp;
+  endDate?: Timestamp;
+  name?: string = '';
 }

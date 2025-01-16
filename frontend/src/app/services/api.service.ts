@@ -29,7 +29,7 @@ import { GameService } from './game.service';
 import { PlayerService } from './player.service';
 import data from '../../../firebase_config.json';
 import { Player } from '../models/player';
-import { Game } from '../models/game';
+import { Game, Season } from '../models/game';
 
 @Injectable({
   providedIn: 'root',
@@ -164,7 +164,7 @@ export class ApiService {
     }
   }
 
-  getCurrentUser() {
+  async getCurrentUser() {
     return this.auth.currentUser;
   }
 
@@ -342,6 +342,41 @@ export class ApiService {
         Toast.fire({
           icon: 'error',
           title: "Couldn't get stats!",
+        });
+      }
+    }
+
+    return [];
+  }
+
+  async getSeasons() {
+    if (this.auth.currentUser) {
+      try {
+        const seasonsList = await getDocs(query(collection(this.db, 'seasons'), orderBy('startDate', 'desc')));
+        let seasons: Season[] = [];
+
+        seasonsList.forEach((season) => {
+          seasons.push(season.data());
+        });
+
+        return seasons;
+      } catch (e) {
+        console.error('Error getting seasons list: ', e);
+
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
+          icon: 'error',
+          title: "Couldn't get seasons!",
         });
       }
     }

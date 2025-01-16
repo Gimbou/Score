@@ -8,6 +8,14 @@
     } @else if (loadingData) {
     <app-loading-spinner [loading]="loadingData"></app-loading-spinner>
     } @else if (showStats) {
+      @if (showSeasons) {
+        <select #seasonList (change)="selectSeason(seasonList.value)">
+          <option>All time</option>
+          @for (season of seasonsData; track $index) {
+          <option [selected]="season.name === seasonsData[0].name">{{ season.name }}</option>
+          }
+        </select>
+      }
     <app-stats-numbers [data]="numbersData"></app-stats-numbers>
     <app-stats-table
       [data]="tableData"

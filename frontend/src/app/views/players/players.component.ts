@@ -59,12 +59,16 @@ export class PlayersComponent implements OnInit {
   ngOnInit() {
     this.setPlayerCount();
     this.setPlayersShuffled();
-    this.currentUser = this.apiService.getCurrentUser();
+    this.getCurrentUser();
   }
 
   ngOnDestroy() {
     this._playerChangeSubscription.unsubscribe();
     this._currentUserSubscription.unsubscribe();
+  }
+
+  async getCurrentUser() {
+    this.currentUser = await this.apiService.getCurrentUser();
   }
 
   setPlayerCount(): void {

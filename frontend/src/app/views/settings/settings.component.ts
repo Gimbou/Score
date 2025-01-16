@@ -50,16 +50,20 @@ export class SettingsComponent {
   @Input() endTime;
 
   ngOnInit() {
-    this.currentUser = this.apiService.getCurrentUser();
-
-    if (this.currentUser) {
-      this.currentUserEmail = this.currentUser.email;
-    }
+    this.getCurrentUser();
   }
 
   ngOnDestroy() {
     this._emailSentSubscription.unsubscribe();
     this._currentUserSubscription.unsubscribe();
+  }
+
+  async getCurrentUser() {
+    this.currentUser = await this.apiService.getCurrentUser();
+
+    if (this.currentUser) {
+      this.currentUserEmail = this.currentUser.email;
+    }
   }
 
   setTime(time: string): void {

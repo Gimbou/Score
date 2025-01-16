@@ -26,21 +26,37 @@ export class StatsService {
 
   constructor(private apiService: ApiService) {}
 
-  async generateStats() {
-    this.games = [];
+  async getAllGames() {
+    this.games = await this.apiService.getGames();
+  }
+
+  async generateStats(filterStartDate?: Date, filterEndDate?: Date) {
+    let filteredGames: Game[] = [];
     this.numbers = [];
     this.playersTable = [];
     this.gamesTable = [];
     this.chart = { labels: [], datasets: [] };
     this.playersGames = [];
 
-    this.games = await this.apiService.getGames();
-    this.numbers.push({ name: 'Games', value: this.games.length });
+    if (!this.games.length) {
+      await this.getAllGames();
+    }
+
+    if (filterStartDate && !filterEndDate) {
+      filteredGames = this.games.filter((game) => game.startTime ? new Date(game.startTime).getTime() > filterStartDate.getTime() : 0);
+    } else if (filterStartDate && filterEndDate) {
+      filterEndDate.setDate(filterEndDate.getDate() + 1);
+      filteredGames = this.games.filter((game) => game.startTime ? new Date(game.startTime).getTime() > filterStartDate.getTime() && new Date(game.startTime).getTime() < filterEndDate.getTime() : 0);
+    } else {
+      filteredGames = this.games;
+    }
+    
+    this.numbers.push({ name: 'Games', value: filteredGames.length });
 
     let winsVestless = 0;
     let winsVest = 0;
 
-    this.games.forEach((game) => {
+    filteredGames.forEach((game) => {
       let winnerTeam = 0;
       let draw = false;
       
@@ -170,11 +186,11 @@ export class StatsService {
     this.numbers.push({ name: 'Players', value: this.playersTable.length });
     this.numbers.push({
       name: 'Vestless wins',
-      value: Math.round((winsVestless / this.games.length) * 100),
+      value: Math.round((winsVestless / filteredGames.length) * 100),
     });
     this.numbers.push({
       name: 'Vest wins',
-      value: Math.round((winsVest / this.games.length) * 100),
+      value: Math.round((winsVest / filteredGames.length) * 100),
     });
 
     this.chart = {

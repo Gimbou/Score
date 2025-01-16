@@ -10,6 +10,7 @@ import { StatsService } from '../../services/stats.service';
 import { ApiService } from '../../services/api.service';
 import { Stat, StatTable, StatGame, StatChartType } from '../../models/stat';
 import { Player } from '../../models/player';
+import { Season } from '../../models/game';
 
 import { StatsNumbersComponent } from '../../../../src/app/components/stats-numbers/stats-numbers.component';
 import { StatsTableComponent } from '../../../../src/app/components/stats-table/stats-table.component';
@@ -37,6 +38,7 @@ import { StatsSingleGameComponent } from '../../components/stats-single-game/sta
   styleUrl: './stats.component.scss',
 })
 export class StatsComponent implements OnInit {
+  seasonsData: Season[] = [];
   numbersData: Stat[] = [];
   tableData: StatTable[] = [];
   gameData: StatGame[] = [];
@@ -50,6 +52,7 @@ export class StatsComponent implements OnInit {
   singleGameData: Player[] = [];
 
   currentUser: User | null = null;
+  showSeasons: boolean = false;
   showStats: boolean = false;
   loadingData: boolean = false;
   showPlayerStats: boolean = false;
@@ -86,20 +89,39 @@ export class StatsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.getStats();
+    this.currentUser = await this.apiService.getCurrentUser();
+    await this.getSeasons();
+    await this.getStats();
   }
 
   ngOnDestroy() {
     this._currentUserSubscription.unsubscribe();
   }
 
-  async getStats() {
-    this.currentUser = this.apiService.getCurrentUser();
+  async getSeasons() {
+    if (this.currentUser) {
+      this.seasonsData = await this.apiService.getSeasons();
+    }
 
+    if (this.seasonsData.length) {
+      this.showSeasons = true;
+    }
+  }
+
+  async getStats(seasonIndex: number = 0) {
     if (this.currentUser) {
       this.userLoggedIn = true;
       this.loadingData = true;
-      await this.statsService.generateStats();
+
+      if (seasonIndex > -1 && this.seasonsData.length) {
+        if (this.seasonsData[seasonIndex].startDate && !this.seasonsData[seasonIndex].endDate) {
+          await this.statsService.generateStats(this.seasonsData[seasonIndex]?.startDate?.toDate());
+        } else if (this.seasonsData[seasonIndex].startDate && this.seasonsData[seasonIndex].endDate) {
+          await this.statsService.generateStats(this.seasonsData[seasonIndex]?.startDate?.toDate(), this.seasonsData[seasonIndex]?.endDate?.toDate());
+        }
+      } else {
+        await this.statsService.generateStats();
+      }
 
       this.numbersData = this.statsService.getNumbers();
       this.tableData = this.statsService.getTable();
@@ -112,6 +134,16 @@ export class StatsComponent implements OnInit {
 
       this.loadingData = false;
     }
+  }
+
+  selectSeason(selectedSeason: string) {
+    const seasonIndex = this.seasonsData.findIndex(
+      (findSeason) => findSeason.name === selectedSeason
+    );
+
+    this.getStats(seasonIndex);
+    this.showPlayerStats = false;
+    this.showGameStats = false;
   }
 
   changeChart(type: StatChartType) {

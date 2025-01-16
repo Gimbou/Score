@@ -56,12 +56,16 @@ export class ResultComponent implements OnInit {
   ngOnInit() {
     this.getGame();
     this.setGameUploaded();
-    this.currentUser = this.apiService.getCurrentUser();
+    this.getCurrentUser();
   }
 
   ngOnDestroy() {
     this._gameChangeSubscription.unsubscribe();
     this._currentUserSubscription.unsubscribe();
+  }
+
+  async getCurrentUser() {
+    this.currentUser = await this.apiService.getCurrentUser();
   }
 
   setGameUploaded(): void {
